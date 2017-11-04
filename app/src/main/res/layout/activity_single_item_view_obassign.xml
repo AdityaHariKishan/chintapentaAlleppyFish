@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_single_item_view_obassign"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ss.android.allepyfish.activities.office_boy.SingleItemViewOBAssign">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/doneBtnsLLy">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/nextImageOBAIB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@mipmap/next_icon"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/uploadedFishImages"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/alleppeyfish" />
+
+            <include layout="@layout/card_layout_fish_name" />
+
+            <include layout="@layout/card_layout_created_by" />
+
+            <include layout="@layout/card_layout_creator_name" />
+
+            <include layout="@layout/card_layout_order_require_state" />
+
+            <include layout="@layout/card_layout_order_city" />
+
+            <include layout="@layout/card_layout_order_district" />
+
+            <include layout="@layout/card_layout_delivery_date" />
+
+            <include layout="@layout/card_layout_fish_local_name" />
+
+
+            <Button
+                android:id="@+id/getProfilePicsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Product Delivered" />
+
+
+            <TextView
+                android:id="@+id/ifTestLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="TextView"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

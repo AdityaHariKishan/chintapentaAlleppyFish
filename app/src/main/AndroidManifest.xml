@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ss.android.allepyfish">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".utils.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SignupActivity"
+            android:label="Create New Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.UploadNewFish"
+            android:label="Upload Fish"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ManagerLandingScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.FishUploadsDetails"
+            android:label="Uploaded Fish Info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BoysInfoList"
+            android:label="Office Boys List"
+            android:screenOrientation="portrait"
+            android:theme="@style/mytheme" />
+        <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:label="Change Password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ManagerLandingScreenItemCount"
+            android:label="Available Products Count"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.office_boy.OfficeBoyLandingScreen"
+            android:label="@string/title_activity_fisher_man_landing_screen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.office_boy.SingleItemViewOBAssign"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="ad957daf7bf84676934f5ccc62b54d3b" />
+
+        <activity
+            android:name=".activities_new.ManagerOrderRequest"
+            android:label="Manager Order Request"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities_new.ManagerUploads"
+            android:label="My Uploads"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities_new.FisherManResponse"
+            android:label="Fisher Man Response"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities_new.FisherManScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities_new.RespondOrder"
+            android:label="Respond Order"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities_new.ManagerMyUploads"
+            android:label="Manager View"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities_new.ManagerUploadsResponse"
+            android:label="My Upload Response"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities_new.ManagerResponseList" />
+        <activity
+            android:name=".activities_new.ManagerUploadsDetails"
+            android:label="My Product Details" />
+        <activity android:name=".activities.ManagerResponseListDetails" />
+        <activity
+            android:name=".activities_new.MyProfileDetails"
+            android:label="My Profile" />
+        <activity android:name=".activities_new.ManagerEditMyOrder" />
+        <activity
+            android:name=".activities_new.ForgotPasswordRequest"
+            android:label="@string/title_activity_forgot_password_request" />
+        <activity android:name=".activities.admin.AdminActivity" />
+        <activity android:name=".activities.admin.RegisteredMembers" />
+        <activity android:name=".activities.office_boy.AdminRequests" />
+        <activity android:name=".activities.admin.ChangePasswordAdmin"></activity>
+    </application>
+
+</manifest>

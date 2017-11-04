@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_upload_new_fish"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/doneBtnsLLy">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/dateAvailableEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_edittext"
+                android:drawableLeft="@mipmap/pick_date"
+                android:drawablePadding="10dp"
+                android:hint="Pickup Date"
+                android:inputType="text"
+                android:padding="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <EditText
+                    android:id="@+id/qtyAvailabilityEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_edittext"
+                    android:drawableLeft="@mipmap/quantity"
+                    android:drawablePadding="10dp"
+                    android:hint="No Of Kg"
+                    android:inputType="number"
+                    android:padding="1dp" />
+
+                <Spinner
+                    android:id="@+id/selectFmQtyUnits"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_background_menu"
+                    android:drawSelectorOnTop="true"
+                    android:spinnerMode="dialog"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/countPerKgEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_edittext"
+                android:drawableLeft="@mipmap/quantity"
+                android:drawablePadding="10dp"
+                android:hint="Count Per Kg"
+                android:inputType="number"
+                android:padding="1dp"
+                android:visibility="visible" />
+
+
+            <EditText
+                android:id="@+id/rateQuotedEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/rounded_edittext"
+                android:drawableLeft="@mipmap/rupee"
+                android:drawablePadding="10dp"
+                android:hint="Offering price"
+                android:inputType="numberDecimal"
+                android:padding="1dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/doneBtnsLLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/respondOrderBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="Respond"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

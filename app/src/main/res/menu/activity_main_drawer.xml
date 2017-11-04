@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_profile_info"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/nav_my_products"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Track My Product" />
+        <item
+            android:id="@+id/nav_payment_details"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Payment Details" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+
+            <item
+                android:id="@+id/nav_contact_us"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Contact Us" />
+           
+            <item
+                android:id="@+id/nav_sign_out"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Sign Out" />
+        </menu>
+    </item>
+
+</menu>

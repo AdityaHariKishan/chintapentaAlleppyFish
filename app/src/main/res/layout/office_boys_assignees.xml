@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+
+    <ImageView
+        android:id="@+id/imageView_ob_as"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_weight="0.1"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_ob_as"
+            android:fontFamily="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="6dip"
+            android:textColor="#228B22"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:fontFamily="serif"
+            android:id="@+id/email_ob_as"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:paddingBottom="2dip"
+            android:textColor="#228B22" />
+
+        <TextView
+            android:fontFamily="serif"
+            android:id="@+id/mobile_ob_as"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:textColor="#5d5d5d"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

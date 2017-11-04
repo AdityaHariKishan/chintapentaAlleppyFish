@@ -1,0 +1,216 @@
+<resources>
+    <string name="app_name">Alleppey Fish</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_fisher_man_landing_screen">Office boy Screen</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string-array name="indian_states">
+        <item>Andhra Pradesh</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+    </string-array>
+
+    <string-array name="user_resquests">
+        <item>Change Password</item>
+    </string-array>
+
+
+    <string-array name="kerala_fish">
+        <item>Nethili</item>
+        <item>Neduva</item>
+        <item>Vatta</item>
+        <item>Bummuli</item>
+        <item>Nachara</item>
+        <item>Valia Etta</item>
+    </string-array>
+
+    <string-array name="tamil_fish">
+        <item>Nethili</item>
+        <item>Sheela</item>
+        <item>Paarai</item>
+        <item>Vangaravasi</item>
+        <item>Viral Meen</item>
+        <item>Kelluthi</item>
+    </string-array>
+
+    <string-array name="andhra_fish">
+        <item>Nethallu</item>
+        <item>Jellow</item>
+        <item>Kurugu paarah</item>
+        <item>vanamattalu</item>
+        <item>Bonke</item>
+        <item>Jelalu</item>
+    </string-array>
+
+    <string-array name="telangana_fish">
+        <item>Nethallu</item>
+        <item>Jellow</item>
+        <item>Kurugu paarah</item>
+        <item>vanamattalu</item>
+        <item>Bonke</item>
+        <item>Jelalu</item>
+    </string-array>
+
+    <string-array name="kannada_fish">
+        <item>Bolingei Kollathuru</item>
+        <item>Obantol</item>
+        <item>Konande</item>
+        <item>Thede</item>
+    </string-array>
+
+    <string-array name="english_fish_name">
+        <item>Anchovies</item>
+        <item>Barracuda</item>
+        <item>Bluefin Travelly</item>
+        <item>Bombay Duck</item>
+        <item>Butterfish</item>
+        <item>Catfish</item>
+    </string-array>
+
+    <string-array name="select_units">
+        <item>Kg</item>
+        <item>Grams</item>
+        <item>Pieces</item>
+    </string-array>
+
+    <string-array name="register_as">
+        <item>Admin</item>
+        <item>Manager</item>
+        <item>Fisher Man</item>
+        <!--<item>Office Boy</item>-->
+    </string-array>
+
+    <string-array name="states">
+        <item>Andhra Pradesh</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Lakshadweep</item>
+        <item>Puducherry</item>
+        <item>Tamil Nadu</item>
+    </string-array>
+
+    <string-array name="ap">
+        <item>Anantapur</item>
+        <item>Chittoor</item>
+        <item>East Godavari</item>
+        <item>Guntur</item>
+        <item>Kadapa</item>
+        <item>Krishna</item>
+        <item>Kurnool</item>
+        <item>Nellore</item>
+        <item>Prakasam</item>
+        <item>Srikakulam</item>
+        <item>Visakhapatnam</item>
+        <item>Vizianagaram</item>
+        <item>West Godavari</item>
+    </string-array>
+
+    <string-array name="Karnataka">
+        <item>Bagalkot</item>
+        <item>Ballari</item>
+        <item>Belagavi</item>
+        <item>Bengaluru Rural</item>
+        <item>Bengaluru Urban</item>
+        <item>Bidar</item>
+        <item>Chamarajnagar</item>
+        <item>Chikkaballapur</item>
+        <item>Chikkamagaluru</item>
+        <item>Chitradurga</item>
+        <item>Dakshina Kannada</item>
+        <item>Davanagere</item>
+        <item>Dharwad</item>
+        <item>Gadag</item>
+        <item>Hassan</item>
+        <item>Haveri</item>
+        <item>Kalaburagi</item>
+        <item>Kodagu</item>
+        <item>Kolar</item>
+        <item>Koppal</item>
+        <item>Mandya</item>
+        <item>Mysuru</item>
+        <item>Raichur</item>
+        <item>Ramanagara</item>
+        <item>Shivamogga</item>
+        <item>Tumakuru</item>
+        <item>Udupi</item>
+        <item>Uttara Kannada</item>
+        <item>Vijayapura</item>
+        <item>Yadgir</item>
+
+    </string-array>
+
+    <string-array name="Kerala">
+        <item>Alappuzha</item>
+        <item>Ernakulam</item>
+        <item>Idukki</item>
+        <item>Kannur</item>
+        <item>Kasaragod</item>
+        <item>Kollam</item>
+        <item>Kottayam</item>
+        <item>Kozhikode</item>
+        <item>Malappuram</item>
+        <item>Palakkad</item>
+        <item>Pathanamthitta</item>
+        <item>Thrissur</item>
+        <item>Thiruvananthapuram</item>
+        <item>Wayanad</item>
+    </string-array>
+
+    <string-array name="Lakshadweep">
+        <item>Lakshadweep</item>
+    </string-array>
+
+    <string-array name="Puducherry">
+        <item>Karaikal</item>
+        <item>Mahe</item>
+        <item>Pondicherry</item>
+        <item>Yanam</item>
+    </string-array>
+
+    <string-array name="TamilNadu">
+        <item>Ariyalur</item>
+        <item>Chennai</item>
+        <item>Ariyalur</item>
+        <item>Coimbatore</item>
+        <item>Cuddalore</item>
+        <item>Dharmapuri</item>
+        <item>Dindigul</item>
+        <item>Erode</item>
+        <item>Kanchipuram</item>
+        <item>Kanyakumari</item>
+        <item>Karur</item>
+        <item>Krishnagiri</item>
+        <item>Madurai</item>
+        <item>Nagapattinam</item>
+        <item>Nilgiris</item>
+        <item>Namakkal</item>
+        <item>Perambalur</item>
+        <item>Pudukkottai</item>
+        <item>Ramanathapuram</item>
+        <item>Salem</item>
+        <item>Sivaganga</item>
+        <item>Tirupur</item>
+        <item>Tiruchirappalli</item>
+        <item>Theni</item>
+        <item>Tirunelveli</item>
+        <item>Thanjavur</item>
+        <item>Thoothukudi</item>
+        <item>Tiruvallur</item>
+        <item>Tiruvarur</item>
+        <item>Tiruvannamalai</item>
+        <item>Vellore</item>
+        <item>Viluppuram</item>
+        <item>Virudhunagar</item>
+    </string-array>
+    <string name="title_activity_forgot_password_request">ForgotPasswordRequest</string>
+
+
+</resources>
+
