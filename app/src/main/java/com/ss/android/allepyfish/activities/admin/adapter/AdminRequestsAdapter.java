@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.ForgotPasswordActivity;
+import com.ss.android.allepyfish.activities.admin.ChangePasswordAdmin;
 import com.ss.android.allepyfish.activities_new.MyProfileDetails;
 import com.ss.android.allepyfish.utils.AppConfig;
 import com.ss.android.allepyfish.utils.AppController;
@@ -109,8 +110,8 @@ public class AdminRequestsAdapter extends BaseAdapter {
                 // Get the position
                 resultp = data.get(position);
 
-                Intent changPWDIntent = new Intent(context, ForgotPasswordActivity.class);
-//                Intent changPWDIntent = new Intent(context, ChangePasswordAdmin.class);
+//                Intent changPWDIntent = new Intent(context, ForgotPasswordActivity.class);
+                Intent changPWDIntent = new Intent(context, ChangePasswordAdmin.class);
                 changPWDIntent.putExtra("myMailId", resultp.get("user_email"));
                 context.startActivity(changPWDIntent);
 

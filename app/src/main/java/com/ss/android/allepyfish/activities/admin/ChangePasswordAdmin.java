@@ -55,10 +55,11 @@ public class ChangePasswordAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_change_password_admin);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        List<ContactInfo> contacts = db.getAllContacts();
 
         db = new SQLiteHandler(this);
         db = new SQLiteHandler(getApplicationContext());
+
+        List<ContactInfo> contacts = db.getAllContacts();
         session = new SessionManager(getApplicationContext());
 
 
@@ -89,7 +90,7 @@ public class ChangePasswordAdmin extends AppCompatActivity {
                 String fpEmailIdStr = myMailIdPWD.trim();
                 String fpPasswordStr = fpPasswordEdt.getText().toString().trim();
                 changePwd(fpEmailIdStr,fpPasswordStr);
-
+//                updateUserStatus();
             }
         });
     }
@@ -108,44 +109,8 @@ public class ChangePasswordAdmin extends AppCompatActivity {
                 Log.d(TAG, "User Request Response: " + response.toString());
 //                hideDialog();
 
-                startActivity(new Intent(ChangePasswordAdmin.this,LoginActivity.class));
-                finish();
-               /* try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // Check for error node in json
-                    if (!error) {
-                        String uid = jObj.getString("uid");
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String phoneNo = user.getString("phone_no");
-                        String loginType = user.getString("login_type");
-                        String created_at = user
-                                .getString("created_at");
-
-                        if(loginType.equals("Manager")){
-                            startActivity(new Intent(ForgotPasswordActivity.this,ManagerLandingScreen.class));
-                            finish();
-                        }else if (loginType.equals("Fisher Man")){
-                            startActivity(new Intent(ForgotPasswordActivity.this,MainActivity.class));
-                            finish();
-                        }
-
-                    } else {
-                        // Error in login. Get the error message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }*/
-
+//                startActivity(new Intent(ChangePasswordAdmin.this,LoginActivity.class));
+//                finish();
             }
         }, new Response.ErrorListener() {
 
