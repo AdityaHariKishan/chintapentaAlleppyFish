@@ -52,7 +52,7 @@
                     android:drawableLeft="@mipmap/quantity"
                     android:drawablePadding="10dp"
                     android:hint="No Of Kg"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:padding="1dp" />
 
                 <Spinner

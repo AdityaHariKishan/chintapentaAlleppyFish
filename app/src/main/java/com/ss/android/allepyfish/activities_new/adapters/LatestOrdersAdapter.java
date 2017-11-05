@@ -106,6 +106,11 @@ public class LatestOrdersAdapter extends BaseAdapter {
         {
             Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
         }
+        if(resultp.get("product_name").equals("Barracuda"))
+        {
+            Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
+        }
+
 
 
         // Capture position and set results to the ImageView

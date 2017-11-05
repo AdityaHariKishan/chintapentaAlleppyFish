@@ -33,7 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     Intent intent;
 
-    String myMailIdPWD;
+//    String myMailIdPWD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         intent = getIntent();
-        myMailIdPWD = intent.getStringExtra("myMailId");
+//        myMailIdPWD = intent.getStringExtra("myMailId");
 
         fpEmailIdEdt = (EditText)findViewById(R.id.fpEmailIdEdt);
-        fpEmailIdEdt.setEnabled(false);
-        fpEmailIdEdt.setText(myMailIdPWD);
+//        fpEmailIdEdt.setEnabled(false);
+//        fpEmailIdEdt.setText(myMailIdPWD);
         fpPasswordEdt = (EditText)findViewById(R.id.fpPasswordEdt);
 
         submmitPasswordBtn = (Button)findViewById(R.id.submmitPasswordBtn);
@@ -53,7 +53,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                String fpEmailIdStr = fpEmailIdEdt.getText().toString().trim();
-                String fpEmailIdStr = myMailIdPWD.trim();
+//                String fpEmailIdStr = myMailIdPWD.trim();
+                String fpEmailIdStr = fpEmailIdEdt.getText().toString().trim();
                 String fpPasswordStr = fpPasswordEdt.getText().toString().trim();
                 changePwd(fpEmailIdStr,fpPasswordStr);
             }
