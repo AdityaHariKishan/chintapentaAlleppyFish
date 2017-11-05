@@ -1,22 +1,30 @@
 package com.ss.android.allepyfish.activities_new;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.handlers.SQLiteHandler;
 import com.ss.android.allepyfish.model.ContactInfo;
 import com.ss.android.allepyfish.utils.AppConfig;
+import com.ss.android.allepyfish.utils.DecimalDigitsInputFilter;
+import com.ss.android.allepyfish.utils.InputFilterMinMax;
 import com.ss.android.allepyfish.utils.NoDefaultSpinner;
 
 import org.json.JSONObject;
@@ -29,22 +37,24 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class RespondOrder extends AppCompatActivity {
+public class RespondOrder extends AppCompatActivity implements View.OnClickListener {
 
     String TAG = RespondOrder.class.getSimpleName();
 
     Intent intent;
 
-    String uniquieIdStr,productNameStr,stateStr,districtStr,cityStr,deliveryDateStr,quantityStr,creater_ppStr,contactNoStr,productLocalNameStr;
+    String uniquieIdStr, productNameStr, stateStr, districtStr, cityStr, deliveryDateStr, quantityStr, creater_ppStr, contactNoStr, productLocalNameStr;
 
-    String dateAvailableStr,qtyAvailabilityStr,marketRateStr,rateQuotedStr,unitsStr,totalQtyStr,createdByStr,orderIDStr;
+    String dateAvailableStr, qtyAvailabilityStr, countPerKgStr, rateQuotedStr, unitsStr, totalQtyStr, createdByStr, orderIDStr;
 
-    EditText dateAvailableEdt,qtyAvailabilityEdt,marketRateEdt,rateQuotedEdt;
+    EditText dateAvailableEdt, qtyAvailabilityEdt, countPerKgEdt, rateQuotedEdt;
 
     Spinner selectFmQtyUnits;
 
@@ -56,23 +66,24 @@ public class RespondOrder extends AppCompatActivity {
 
     SQLiteHandler db;
 
-    String fmName,fmPHNo,fm_ppURL;
+    String fmName, fmPHNo, fm_ppURL;
 
+    private DatePickerDialog pickUpDateDialog;
+
+    SimpleDateFormat dateFormatter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_respond_order);
-
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setHomeButtonEnabled(true);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        dateFormatter = new SimpleDateFormat("MMM dd,yyyy");
 
         db = new SQLiteHandler(this);
         List<ContactInfo> contactInfos = db.getAllContacts();
-        for(ContactInfo contactInfo : contactInfos){
+        for (ContactInfo contactInfo : contactInfos) {
 
             fmName = contactInfo.getName();
             fmPHNo = contactInfo.getPhone_no();
@@ -94,40 +105,53 @@ public class RespondOrder extends AppCompatActivity {
         createdByStr = intent.getStringExtra("created_by");
         orderIDStr = intent.getStringExtra("order_ide");
 
-        dateAvailableEdt = (EditText)findViewById(R.id.dateAvailableEdt);
-        qtyAvailabilityEdt = (EditText)findViewById(R.id.qtyAvailabilityEdt);
-        marketRateEdt = (EditText)findViewById(R.id.countPerKgEdt);
-        rateQuotedEdt = (EditText)findViewById(R.id.rateQuotedEdt);
+        dateAvailableEdt = (EditText) findViewById(R.id.dateAvailableEdt);
+        dateAvailableEdt.setOnClickListener(this);
+        dateAvailableEdt.setKeyListener(null);
+
+        qtyAvailabilityEdt = (EditText) findViewById(R.id.qtyAvailabilityEdt);
+        qtyAvailabilityEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(2, 2)});
+
+        countPerKgEdt = (EditText) findViewById(R.id.countPerKgEdt);
+        countPerKgEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
+
+        rateQuotedEdt = (EditText) findViewById(R.id.rateQuotedEdt);
+        rateQuotedEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(2, 2)});
 
         selectFmQtyUnits = (Spinner) findViewById(R.id.selectFmQtyUnits);
-//
+
 
         adapterProductUnits = ArrayAdapter.createFromResource(this, R.array.select_units, android.R.layout.simple_spinner_item);
         adapterProductUnits.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectFmQtyUnits.setPrompt(qtyUnits);
 
-        selectFmQtyUnits.setAdapter((new NoDefaultSpinner(adapterProductUnits, R.layout.select_units_custom_spinner, this)));;
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
 
 
-        respondOrderBtn = (Button)findViewById(R.id.respondOrderBtn);
-//        respondOrderBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dateAvailableStr = dateAvailableEdt.getText().toString().trim();
-//                qtyAvailabilityStr = qtyAvailabilityEdt.getText().toString().trim();
-////                marketRateStr = marketRateEdt.getText().toString().trim();
-//                marketRateStr = "0";
-//                rateQuotedStr = rateQuotedEdt.getText().toString().trim();
-//
-//                unitsStr = selectFmQtyUnits.getSelectedItem().toString().trim();
-//
-//                totalQtyStr = qtyAvailabilityStr+" "+unitsStr;
-//
-//                respondOrder(uniquieIdStr,productNameStr,stateStr,districtStr,cityStr,deliveryDateStr,quantityStr,creater_ppStr,contactNoStr,dateAvailableStr,totalQtyStr,
-//                        marketRateStr,rateQuotedStr);
-//
-//            }
-//        });
+        final String formattedDate = dateFormatter.format(c.getTime());
+        dateAvailableEdt.setText(formattedDate);
+
+        selectFmQtyUnits.setAdapter((new NoDefaultSpinner(adapterProductUnits, R.layout.select_units_custom_spinner, this)));
+        ;
+
+        Calendar newCalendar = Calendar.getInstance();
+        pickUpDateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                dateAvailableEdt.setText(dateFormatter.format(newDate.getTime()));
+
+//                isDateAfter(formattedDate,  dateFormatter.format(newDate.getTime()));
+
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        pickUpDateDialog.getDatePicker().setMinDate(newCalendar.getTimeInMillis());
+
+        respondOrderBtn = (Button) findViewById(R.id.respondOrderBtn);
+
     }
 
 
@@ -140,9 +164,7 @@ public class RespondOrder extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -150,8 +172,8 @@ public class RespondOrder extends AppCompatActivity {
 
             dateAvailableStr = dateAvailableEdt.getText().toString().trim();
             qtyAvailabilityStr = qtyAvailabilityEdt.getText().toString().trim();
-                marketRateStr = marketRateEdt.getText().toString().trim();
-//            marketRateStr = "0";
+            countPerKgStr = countPerKgEdt.getText().toString().trim();
+//            countPerKgStr = "0";
             rateQuotedStr = rateQuotedEdt.getText().toString().trim();
 
 //            unitsStr = selectFmQtyUnits.getSelectedItem().toString().trim();
@@ -160,19 +182,44 @@ public class RespondOrder extends AppCompatActivity {
             totalQtyStr = qtyAvailabilityStr;
 
 //            respondOrder(uniquieIdStr, productNameStr, stateStr, districtStr, cityStr, deliveryDateStr, quantityStr, creater_ppStr, contactNoStr, dateAvailableStr, totalQtyStr,
-//                    marketRateStr, rateQuotedStr);
-
-            new RespondOrderRequest().execute();
+//                    countPerKgStr, rateQuotedStr);
 
 
+            if (!(qtyAvailabilityStr.length() == 0)) {
+                if (!(countPerKgStr.length() == 0)) {
+
+                    if (!(rateQuotedStr.length() == 0)) {
+
+                        new RespondOrderRequest().execute();
+
+                    } else {
+                        rateQuotedEdt.setError("Rate Should not be empty");
+
+                    }
+
+                } else {
+                    countPerKgEdt.setError("Enter Count Per Kg");
+
+                }
+            } else {
+                qtyAvailabilityEdt.setError("Qunatity Should not be empty");
+            }
 
             return true;
         }
 
 
-
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.dateAvailableEdt:
+
+                pickUpDateDialog.show();
+                break;
+        }
     }
 
     private class RespondOrderRequest extends AsyncTask<String, Void, String> {
@@ -200,7 +247,7 @@ public class RespondOrder extends AppCompatActivity {
                 postDataParams.put("delivery_date_by_mngr", deliveryDateStr);
                 postDataParams.put("delivery_date_by_fm", dateAvailableStr);
                 postDataParams.put("quantity_providing", totalQtyStr);
-                postDataParams.put("count_perkg", marketRateStr);
+                postDataParams.put("count_perkg", countPerKgStr);
                 postDataParams.put("product_offer_price", rateQuotedStr);
                 postDataParams.put("deal_offer_status", "Open");
                 postDataParams.put("fm_contact_no", fmPHNo);
@@ -261,6 +308,8 @@ public class RespondOrder extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), result,
                     Toast.LENGTH_LONG).show();
 
+
+
 //            startActivity(new Intent(AddProfile.this, MainActivity.class));
             startActivity(new Intent(RespondOrder.this, FisherManScreen.class));
         }
@@ -291,5 +340,19 @@ public class RespondOrder extends AppCompatActivity {
         return result.toString();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RespondOrder.this, FisherManScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }
