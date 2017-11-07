@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,6 +43,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
+
+    public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9+._%-+]{1,256}" +
+                    "@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
+                    "(" +
+                    "." +
+                    "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
+                    ")+"
+    );
 
     @Bind(R.id.input_email)
     EditText _emailText;
@@ -142,8 +154,22 @@ public class LoginActivity extends AppCompatActivity {
 
                 String emailStr = _emailText.getText().toString().trim();
                 String pwdStr = _passwordText.getText().toString().trim();
-                checkLogin(emailStr,pwdStr);
 
+                if(!(emailStr.length() == 0)) {
+
+                        if (checkEmail(emailStr)) {
+                            if (!(pwdStr.length() == 0)) {
+                                checkLogin(emailStr, pwdStr);
+                            } else {
+                                _passwordText.setError("Password Should not be empty");
+                            }
+                        }else {
+                            _emailText.setError("Please Enter Proper Email Id");
+                        }
+
+                }else {
+                    _emailText.setError("Email Id Should empty");
+                }
 
             }
         });
@@ -159,6 +185,10 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+    }
+
+    private boolean checkEmail(String emailStr) {
+        return EMAIL_ADDRESS_PATTERN.matcher(emailStr).matches();
     }
 
     private void sendEmail() {
@@ -200,6 +230,8 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
+
+                    Log.i(TAG, "The Erro Value is :: "+error);
 
                     // Check for error node in json
                     if (!error) {
@@ -250,13 +282,29 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+
+                        JSONObject jObj1 = new JSONObject(response);
+                        String message = jObj1.getString("error_msg");
+
+//                        Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
+
+                        Log.i(TAG,"Login Error "+message);
                     }
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject((response));
+                        String erroMsg = jsonObject.getString("error_msg");
+                        Log.i(TAG,"Login Error MSG :: 298 :: "+erroMsg);
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+
+//                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                   /* String errorMsg = jObj.getString("error_msg");
+                    Log.i(TAG,"Login Error "+message);*/
                 }
 
             }

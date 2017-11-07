@@ -41,6 +41,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ManagerLandingScreen"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FishUploadsDetails"
@@ -89,6 +90,7 @@
         <activity
             android:name=".activities_new.RespondOrder"
             android:label="Respond Order"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities_new.ManagerMyUploads"
@@ -106,7 +108,10 @@
         <activity
             android:name=".activities_new.MyProfileDetails"
             android:label="My Profile" />
-        <activity android:name=".activities_new.ManagerEditMyOrder" />
+        <activity
+            android:name=".activities_new.ManagerEditMyOrder"
+            android:label="Edit the Order"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".activities_new.ForgotPasswordRequest"
             android:label="@string/title_activity_forgot_password_request" />

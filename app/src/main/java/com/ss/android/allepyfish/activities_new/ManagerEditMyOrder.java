@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,8 @@ import com.ss.android.allepyfish.handlers.SQLiteHandler;
 import com.ss.android.allepyfish.model.ContactInfo;
 import com.ss.android.allepyfish.utils.AppConfig;
 import com.ss.android.allepyfish.utils.AppController;
+import com.ss.android.allepyfish.utils.DecimalDigitsInputFilter;
+import com.ss.android.allepyfish.utils.InputFilterMinMax;
 import com.ss.android.allepyfish.utils.NoDefaultSpinner;
 import com.ss.android.allepyfish.utils.SessionManager;
 
@@ -93,9 +96,11 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
 
         inputQuantity = (EditText) findViewById(R.id.inputUpdateQuantity);
         inputQuantity.setText(qttStr);
+        inputQuantity.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 2)});
 
         countPerKg = (EditText) findViewById(R.id.inputUpdateCountPerKgEdt);
         countPerKg.setText(count_per_kgStr);
+        countPerKg.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
 
 
         makeOrderBtn = (Button) findViewById(R.id.updateOrderEdtBtn);
@@ -134,8 +139,15 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
                 String countKGSTr = countPerKg.getText().toString().trim();
 
 
-
-                makeOrderRequest(order_ideStr, delDateStr, qtyStr, countKGSTr);
+                if(!(qtyStr.length() == 0)) {
+                    if(!(countKGSTr.length() == 0)) {
+                        makeOrderRequest(order_ideStr, delDateStr, qtyStr, countKGSTr);
+                    }else {
+                        countPerKg.setError("Enter Count Per Kg");
+                    }
+                }else {
+                    inputQuantity.setError("Enter Quantity");
+                }
 
 
                 break;
@@ -168,8 +180,13 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
                         // User successfully stored in MySQL
-                        Toast.makeText(getApplicationContext(), "Product Successfully Approved", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ManagerEditMyOrder.this, ManagerMyUploads.class));
+                        Toast.makeText(getApplicationContext(), "Product Successfully Updated", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(ManagerEditMyOrder.this, ManagerMyUploads.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+                        finish();
 
                     } else {
 
@@ -247,6 +264,7 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        finish();
         return true;
     }
 }

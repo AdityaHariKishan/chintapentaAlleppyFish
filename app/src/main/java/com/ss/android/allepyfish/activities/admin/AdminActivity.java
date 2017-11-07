@@ -23,7 +23,7 @@ import com.ss.android.allepyfish.utils.SessionManager;
 
 public class AdminActivity extends AppCompatActivity {
 
-    String[] adminRoles = {"Create User", "View Registered Members", "View Admin Requests", "Make Order Request"};
+    String[] adminRoles = {"Create User", "View Registered Members", "View Admin Requests"/*, "Make Order Request"*/};
 
     ListView adminWorkListView;
 
@@ -52,7 +52,7 @@ public class AdminActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String o = adminWorkListView.getItemAtPosition(position).toString();
 //                prestationEco str = (prestationEco)o; //As you are using Default String Adapter
-                Toast.makeText(getBaseContext(), o, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), o, Toast.LENGTH_SHORT).show();
 
                 if (o.equals("Create User")) {
                     startActivity(new Intent(AdminActivity.this, SignupActivity.class));

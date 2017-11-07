@@ -33,19 +33,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     Intent intent;
 
-//    String myMailIdPWD;
+    String myMailIdPWD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         intent = getIntent();
-//        myMailIdPWD = intent.getStringExtra("myMailId");
+        myMailIdPWD = intent.getStringExtra("myMailId");
 
         fpEmailIdEdt = (EditText)findViewById(R.id.fpEmailIdEdt);
-//        fpEmailIdEdt.setEnabled(false);
-//        fpEmailIdEdt.setText(myMailIdPWD);
+        fpEmailIdEdt.setEnabled(false);
+        fpEmailIdEdt.setText(myMailIdPWD);
         fpPasswordEdt = (EditText)findViewById(R.id.fpPasswordEdt);
 
         submmitPasswordBtn = (Button)findViewById(R.id.submmitPasswordBtn);
@@ -135,5 +135,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         };
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        Intent intent = getIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        finish();
+        return true;
     }
 }

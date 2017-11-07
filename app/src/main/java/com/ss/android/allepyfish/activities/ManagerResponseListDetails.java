@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,9 +61,11 @@ public class ManagerResponseListDetails extends AppCompatActivity {
     TextView fishReqState;
     TextView quantitySupplying;
 
-    Button acceptFMResponse,rejectFMResponse;
+    Button acceptFMResponse, rejectFMResponse;
 
     String product_name;
+    String deal_status;
+    String response_status;
     String fm_name;
     String city;
     String state;
@@ -76,14 +79,18 @@ public class ManagerResponseListDetails extends AppCompatActivity {
     String fm_contact_no;
     String product_local_name;
 
+    LinearLayout decessionValLayout;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_response_list_details);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         intent = getIntent();
+
+        decessionValLayout = (LinearLayout) findViewById(R.id.decessionValLayout);
 
         unique_id = intent.getStringExtra("unique_id");
         product_name = intent.getStringExtra("product_name");
@@ -97,9 +104,17 @@ public class ManagerResponseListDetails extends AppCompatActivity {
         product_offer_price = intent.getStringExtra("product_offer_price");
         delivery_date_by_fm = intent.getStringExtra("delivery_date_by_fm");
         product_local_name = intent.getStringExtra("product_local_name");
+        deal_status = intent.getStringExtra("deal_status");
+        response_status = intent.getStringExtra("response_status");
 
 //        fm_pp = intent.getStringExtra("fm_pp");
 
+        if (response_status.equals("Accepted") || response_status.equals("Rejected")) {
+            decessionValLayout.setVisibility(View.GONE);
+
+        } else {
+            decessionValLayout.setVisibility(View.VISIBLE);
+        }
 
         uploadedFishImagesMU = (ImageView) findViewById(R.id.uploadedFishImagesFMResponse);
 
@@ -116,7 +131,6 @@ public class ManagerResponseListDetails extends AppCompatActivity {
         quantitySupplying.setText(quantity);
 
 
-
         fishDelDateTV = (TextView) findViewById(R.id.fmReqDate);
         fishDelDateTV.setText(delivery_date_by_fm);
 
@@ -127,7 +141,6 @@ public class ManagerResponseListDetails extends AppCompatActivity {
         fishReqState.setText(state);
 
 
-
         fishReqDistrict = (TextView) findViewById(R.id.fishReqDistrict);
         fishReqDistrict.setText(district);
 
@@ -136,28 +149,28 @@ public class ManagerResponseListDetails extends AppCompatActivity {
 
 
         if (product_name.equals("Anchovies")) {
-            Picasso.with(this).load(AppConfig.fish_images_url+"Anchovies.jpg").into(uploadedFishImagesMU);
-            fish_pp = AppConfig.fish_images_url+"Anchovies.jpg";
+            Picasso.with(this).load(AppConfig.fish_images_url + "Anchovies.jpg").into(uploadedFishImagesMU);
+            fish_pp = AppConfig.fish_images_url + "Anchovies.jpg";
         }
         if (product_name.equals("Bombay Duck")) {
-            Picasso.with(this).load(AppConfig.fish_images_url+"bombay_duck.jpg").into(uploadedFishImagesMU);
-            fish_pp = AppConfig.fish_images_url+"bombay_duck.jpg";
+            Picasso.with(this).load(AppConfig.fish_images_url + "bombay_duck.jpg").into(uploadedFishImagesMU);
+            fish_pp = AppConfig.fish_images_url + "bombay_duck.jpg";
         }
         if (product_name.equals("Butterfish")) {
-            Picasso.with(this).load(AppConfig.fish_images_url+"butterfish.jpg").into(uploadedFishImagesMU);
-            fish_pp = AppConfig.fish_images_url+"butterfish.jpg";
+            Picasso.with(this).load(AppConfig.fish_images_url + "butterfish.jpg").into(uploadedFishImagesMU);
+            fish_pp = AppConfig.fish_images_url + "butterfish.jpg";
         }
         if (product_name.equals("Lobsters")) {
-            Picasso.with(this).load(AppConfig.fish_images_url+"lobsters.jpg").into(uploadedFishImagesMU);
-            fish_pp = AppConfig.fish_images_url+"lobsters.jpg";
+            Picasso.with(this).load(AppConfig.fish_images_url + "lobsters.jpg").into(uploadedFishImagesMU);
+            fish_pp = AppConfig.fish_images_url + "lobsters.jpg";
         }
         if (product_name.equals("Bluefin Travelly")) {
-            Picasso.with(this).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(uploadedFishImagesMU);
-            fish_pp = AppConfig.fish_images_url+"bluefin_travelly.jpg";
+            Picasso.with(this).load(AppConfig.fish_images_url + "bluefin_travelly.jpg").into(uploadedFishImagesMU);
+            fish_pp = AppConfig.fish_images_url + "bluefin_travelly.jpg";
         }
         if (product_name.equals("Catfish")) {
-            Picasso.with(this).load(AppConfig.fish_images_url+"cat_fish.jpg").into(uploadedFishImagesMU);
-            fish_pp = AppConfig.fish_images_url+"cat_fish.jpg";
+            Picasso.with(this).load(AppConfig.fish_images_url + "cat_fish.jpg").into(uploadedFishImagesMU);
+            fish_pp = AppConfig.fish_images_url + "cat_fish.jpg";
         }
 
 
@@ -169,7 +182,7 @@ public class ManagerResponseListDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        acceptFMResponse = (Button)findViewById(R.id.acceptFMResponse);
+        acceptFMResponse = (Button) findViewById(R.id.acceptFMResponse);
         acceptFMResponse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +191,7 @@ public class ManagerResponseListDetails extends AppCompatActivity {
                 new updateFMResponse(statusInfo).execute();
             }
         });
-        rejectFMResponse = (Button)findViewById(R.id.rejectFMResponse);
+        rejectFMResponse = (Button) findViewById(R.id.rejectFMResponse);
         rejectFMResponse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +200,6 @@ public class ManagerResponseListDetails extends AppCompatActivity {
             }
         });
     }
-
 
 
     @Override
@@ -216,7 +228,6 @@ public class ManagerResponseListDetails extends AppCompatActivity {
                 JSONObject postDataParams = new JSONObject();
 
 //                String urlPath = "http://www.skilluniverse.org/skill_mobile_app/uploads/"+firstNameStr+".png";
-
 
 
                 postDataParams.put("unique_id", unique_id);
@@ -273,8 +284,8 @@ public class ManagerResponseListDetails extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), result,
+//                    Toast.LENGTH_LONG).show();
 
 //            startActivity(new Intent(AddProfile.this, MainActivity.class));
             startActivity(new Intent(ManagerResponseListDetails.this, ManagerMyUploads.class));

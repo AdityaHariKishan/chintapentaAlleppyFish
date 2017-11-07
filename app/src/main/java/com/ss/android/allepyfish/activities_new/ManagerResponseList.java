@@ -58,6 +58,9 @@ public class ManagerResponseList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_response_list);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         intent = getIntent();
 
         productNameStr = intent.getStringExtra("product_name");
@@ -215,5 +218,12 @@ public class ManagerResponseList extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return true;
     }
 }

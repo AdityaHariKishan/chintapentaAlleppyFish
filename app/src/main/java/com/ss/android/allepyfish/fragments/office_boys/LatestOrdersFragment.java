@@ -196,8 +196,6 @@ public class LatestOrdersFragment extends Fragment {
                 pDialog.dismiss();
 
             }
-
-//            MyUploadsAdapter sfa = new MyUploadsAdapter(getContext(), contactList);
             LatestOrdersAdapter sfa = new LatestOrdersAdapter(getContext(), contactList);
             lv.setAdapter(sfa);
 

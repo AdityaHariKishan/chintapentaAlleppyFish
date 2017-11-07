@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.ForgotPasswordActivity;
@@ -46,6 +47,8 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ManagerUploadsDetails extends AppCompatActivity {
+
+    String TAG = ManagerUploadsDetails.class.getSimpleName();
 
     String unique_id;
     String product_name;
@@ -78,6 +81,8 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
     ImageView uploadedFishImagesMU;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +109,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         quantity = intent.getStringExtra("quantity");
         created_by = intent.getStringExtra("created_by");
         fish_pp = intent.getStringExtra("fish_pp");
+        Log.i(TAG, "The Fish Link " + fish_pp);
         contact_no = intent.getStringExtra("contact_no");
         product_local_name = intent.getStringExtra("product_local_name");
         deal_status = intent.getStringExtra("deal_status");
@@ -117,7 +123,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         orderIdTV.setText(order_ide);
 
         orderedQtyTV = (TextView) findViewById(R.id.orderedQtyTV);
-        orderedQtyTV.setText(quantity+" Kg's");
+        orderedQtyTV.setText(quantity + " Kg's");
 
         fishNameLocal = (TextView) findViewById(R.id.fishLocalNameTV);
         fishNameLocal.setText(product_local_name);
@@ -147,11 +153,13 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         Picasso.with(this).load(fish_pp).into(uploadedFishImagesMU);
 
 
-        closeOrderBtn = (Button)findViewById(R.id.closeOrderBtn);
-        if(deal_status.equals("Close")){
+        closeOrderBtn = (Button) findViewById(R.id.closeOrderBtn);
+        if (deal_status.equals("Close")) {
             closeOrderBtn.setVisibility(View.GONE);
-        }else {
+
+        } else {
             closeOrderBtn.setVisibility(View.VISIBLE);
+
         }
         closeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +171,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -237,11 +246,14 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), result,
+//                    Toast.LENGTH_LONG).show();
+
+            Log.i(TAG, "Getting the Value :: "+result.toString());
 
 //            startActivity(new Intent(AddProfile.this, MainActivity.class));
             startActivity(new Intent(ManagerUploadsDetails.this, ManagerMyUploads.class));
+            finish();
         }
     }
 
@@ -274,6 +286,8 @@ public class ManagerUploadsDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.edit_my_order_menu, menu);
+//        MenuItem item = menu.findItem(R.id.menu_my_item);
+
         return true;
     }
 
@@ -284,9 +298,24 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        switch (id) {
+            case R.id.edit_my_order:
+
+                Intent i = new Intent(ManagerUploadsDetails.this, ManagerEditMyOrder.class);
+//            i.putExtra("product_name",product_name);
+                i.putExtra("order_ide", order_ide);
+                i.putExtra("date", delivery_date);
+                i.putExtra("count_per_kg", count_per_kg);
+                i.putExtra("qty", quantity);
+                startActivity(i);
+                finish();
+                break;
+
+        }
+
         //noinspection SimplifiableIfStatement
 
-        if (id == R.id.edit_my_order) {
+       /* if (id == R.id.edit_my_order) {
             Intent i = new Intent(ManagerUploadsDetails.this,ManagerEditMyOrder.class);
 //            i.putExtra("product_name",product_name);
             i.putExtra("order_ide",order_ide);
@@ -295,7 +324,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
             i.putExtra("qty",quantity);
             startActivity(i);
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

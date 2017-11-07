@@ -143,8 +143,6 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
                 newDate.set(year, monthOfYear, dayOfMonth);
                 dateAvailableEdt.setText(dateFormatter.format(newDate.getTime()));
 
-//                isDateAfter(formattedDate,  dateFormatter.format(newDate.getTime()));
-
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -166,24 +164,14 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.done_order) {
 
             dateAvailableStr = dateAvailableEdt.getText().toString().trim();
             qtyAvailabilityStr = qtyAvailabilityEdt.getText().toString().trim();
             countPerKgStr = countPerKgEdt.getText().toString().trim();
-//            countPerKgStr = "0";
             rateQuotedStr = rateQuotedEdt.getText().toString().trim();
 
-//            unitsStr = selectFmQtyUnits.getSelectedItem().toString().trim();
-
-
             totalQtyStr = qtyAvailabilityStr;
-
-//            respondOrder(uniquieIdStr, productNameStr, stateStr, districtStr, cityStr, deliveryDateStr, quantityStr, creater_ppStr, contactNoStr, dateAvailableStr, totalQtyStr,
-//                    countPerKgStr, rateQuotedStr);
-
 
             if (!(qtyAvailabilityStr.length() == 0)) {
                 if (!(countPerKgStr.length() == 0)) {

@@ -56,6 +56,9 @@ public class ManagerMyUploads extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_my_uploads);
 
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         db = new SQLiteHandler(this);
         session = new SessionManager(getApplicationContext());
 
@@ -73,6 +76,8 @@ public class ManagerMyUploads extends AppCompatActivity {
 
         contactList = new ArrayList<>();
 
+        contactList.clear();
+
         lv = (ListView) findViewById(R.id.list_mgnr_orders);
 //        ImageButton makeNewOrderBtn = (ImageButton)findViewById(R.id.makeNewOrderBtn);
         FloatingActionButton makeNewOrderBtn = (FloatingActionButton)findViewById(R.id.makeNewOrderBtn);
@@ -86,7 +91,7 @@ public class ManagerMyUploads extends AppCompatActivity {
         new GetLatestOrderUpdates().execute();
     }
 
-    private class GetLatestOrderUpdates extends AsyncTask<Void, Void, Void> {
+    private class GetLatestOrderUpdates extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -100,7 +105,7 @@ public class ManagerMyUploads extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected String doInBackground(String... arg0) {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
@@ -197,13 +202,15 @@ public class ManagerMyUploads extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
             // Dismiss the progress dialog
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
 
             }
+
+
 
 //            MyUploadsAdapter sfa = new MyUploadsAdapter(getContext(), contactList);
 //            LatestOrdersAdapter sfa = new LatestOrdersAdapter(ManagerMyUploads.this, contactList);
@@ -230,6 +237,12 @@ public class ManagerMyUploads extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if(id == R.id.my_profile_mgnr){
+
+            startActivity(new Intent(ManagerMyUploads.this, MyProfileDetails.class));
+
+            return true;
+        }
         if (id == R.id.action_logout) {
             logoutUser();
             return true;
@@ -255,7 +268,18 @@ public class ManagerMyUploads extends AppCompatActivity {
 
         // Launching the login activity
         Intent intent = new Intent(ManagerMyUploads.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        super.onBackPressed();  // optional depending on your needs
         finish();
     }
 }

@@ -145,10 +145,7 @@ public class SignupActivity extends AppCompatActivity {
                 signup();
                 uploadProfilePiic();
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+
             }
         });
 
@@ -347,6 +344,10 @@ public class SignupActivity extends AppCompatActivity {
 //                        loading.dismiss();
                         Log.i("Response 123", "Response in Volley " + s);
 
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                     }
                 },
                 new Response.ErrorListener() {
@@ -356,7 +357,7 @@ public class SignupActivity extends AppCompatActivity {
                         loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(SignupActivity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(SignupActivity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
 
                         Log.i("Error 123", "Error in Volley " + volleyError.getMessage().toString().trim());
                     }
@@ -426,12 +427,12 @@ public class SignupActivity extends AppCompatActivity {
     public void signup() {
         Log.d(TAG, "Signup");
 
-//        if (!validate()) {
-//            onSignupFailed();
-//            return;
-//        }
+        if (!validate()) {
+            onSignupFailed();
+            return;
+        }
 
-//        _signupButton.setEnabled(false);
+        _signupButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
@@ -455,7 +456,7 @@ public class SignupActivity extends AppCompatActivity {
         registerUser(name, email, password, phone_no, address, address2, selectedStateStr, districtStr, login_type, cityTxt);
 
 
-      /*  new android.os.Handler().postDelayed(
+        new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
@@ -464,7 +465,7 @@ public class SignupActivity extends AppCompatActivity {
                         // onSignupFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);*/
+                }, 3000);
     }
 
 
@@ -475,7 +476,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
     }
@@ -583,8 +584,8 @@ public class SignupActivity extends AppCompatActivity {
                         // Error occurred in registration. Get the error
                         // message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(),
+//                                errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -596,8 +597,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),
+//                        error.getMessage(), Toast.LENGTH_LONG).show();
 //                hideDialog();
             }
         }) {

@@ -137,6 +137,8 @@ public class MyOrderFMResponseAdapter extends BaseAdapter {
                 intent.putExtra("delivery_date_by_fm", resultp.get("delivery_date_by_fm"));
                 intent.putExtra("fm_pp", resultp.get("fm_pp"));
                 intent.putExtra("district", resultp.get("district"));
+                intent.putExtra("deal_status", resultp.get("deal_status"));
+                intent.putExtra("response_status", resultp.get("response_status"));
                 context.startActivity(intent);
 
             }

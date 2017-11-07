@@ -102,12 +102,16 @@ public class MyGoodsAdapter extends BaseAdapter {
 
         // Capture position and set results to the TextViews
         rank.setText(resultp.get("product_name"));
+//        country.setText("Created By : " + resultp.get("manager_name") + "\nSupplying Quantity : " + resultp.get("quantity") + "\nCount Per Kg : " + resultp.get("count_perkg") + "\nRate Quoted : " + resultp.get("product_offer_price") + "\nMy Product Status : " + resultp.get("response_status"));
 
         if (loginType.equals("Manager")) {
             country.setText("Created By : " + resultp.get("manager_name") + "\nResponded Count : " + resultp.get("product_name_response"));
-        } else if (loginType.equals("Fisher Man")) {
-            country.setText("Created By : " + resultp.get("manager_name") + "\nSuppllying Quantity : " + resultp.get("quantity") + "\nCount Per Kg : " + resultp.get("count_perkg") + "\nRate Quoted : " + resultp.get("product_offer_price") + "\nMy Product Status : " + resultp.get("response_status"));
+        }else {
+            country.setText("Created By : " + resultp.get("manager_name") + "\nSupplying Quantity : " + resultp.get("quantity") + "\nCount Per Kg : " + resultp.get("count_perkg") + "\nRate Quoted : " + resultp.get("product_offer_price") + "\nMy Product Status : " + resultp.get("response_status"));
         }
+        /*if (loginType.equals("Fisher Man")) {
+            country.setText("Created By : " + resultp.get("manager_name") + "\nSupplying Quantity : " + resultp.get("quantity") + "\nCount Per Kg : " + resultp.get("count_perkg") + "\nRate Quoted : " + resultp.get("product_offer_price") + "\nMy Product Status : " + resultp.get("response_status"));
+        }*/
 //        population.setText("State : "+resultp.get("state")+"\n District : "+resultp.get("district"));
 //        String imageURL1 = resultp.get("creater_pp");
 //        Picasso.with(context).load(imageURL1).into(imageView);

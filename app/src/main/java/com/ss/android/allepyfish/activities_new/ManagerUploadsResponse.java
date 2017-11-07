@@ -56,7 +56,6 @@ public class ManagerUploadsResponse extends AppCompatActivity {
         setContentView(R.layout.activity_manager_uploads_response);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         office_boy_lv = (ListView) findViewById(R.id.mangerGoodsResponseList);
@@ -184,6 +183,11 @@ public class ManagerUploadsResponse extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        Intent intent = getIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        finish();
         return true;
     }
 }

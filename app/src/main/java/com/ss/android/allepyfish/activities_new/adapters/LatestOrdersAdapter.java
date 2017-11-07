@@ -83,7 +83,7 @@ public class LatestOrdersAdapter extends BaseAdapter {
 
         // Capture position and set results to the TextViews
         rank.setText(resultp.get("product_local_name")+"\n State : "+resultp.get("state")+", District : "+resultp.get("district")+", City : "+resultp.get("city"));
-        country.setText("Contact No: "+resultp.get("contact_no")+"\nQuantity Req : "+resultp.get("quantity")+"\nCount Per Kg : "+resultp.get("count_per_kg"));
+        country.setText("Contact No: "+resultp.get("contact_no")+"\nQuantity Req : "+resultp.get("quantity")+"\nCount Per Kg : "+resultp.get("count_per_kg")+"\nOrder Id : "+resultp.get("order_ide"));
         population.setText("Created by : "+resultp.get("created_by")+"\nDeal Status : "+resultp.get("deal_status"));
 
         if(resultp.get("product_name").equals("Anchovies"))
@@ -111,11 +111,6 @@ public class LatestOrdersAdapter extends BaseAdapter {
             Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
         }
 
-
-
-        // Capture position and set results to the ImageView
-        // Passes flag images URL into ImageLoader.class
-        // Capture ListView item click
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

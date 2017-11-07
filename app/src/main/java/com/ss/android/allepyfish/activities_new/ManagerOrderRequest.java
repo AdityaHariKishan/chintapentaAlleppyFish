@@ -24,10 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.ss.android.allepyfish.R;
-import com.ss.android.allepyfish.activities.BoysInfoList;
-import com.ss.android.allepyfish.activities.FishUploadsDetails;
 import com.ss.android.allepyfish.activities.LoginActivity;
-import com.ss.android.allepyfish.activities.ManagerLandingScreenItemCount;
 import com.ss.android.allepyfish.handlers.SQLiteHandler;
 import com.ss.android.allepyfish.model.ContactInfo;
 import com.ss.android.allepyfish.utils.AppConfig;
@@ -131,7 +128,7 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
         selectStateSpinner.setPrompt(defaultTextForStateSpinner);
 
         selectStateSpinner.setAdapter(new NoDefaultSpinner(selectStateAdapter, R.layout.select_state, this));
-
+        selectStateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         selectFishSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -313,21 +310,61 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
                 System.out.println(result);
 
                 String orderId = "AF-"+stateCode+"-"+result;
-                String fishNameStr = selectFishSpinner.getSelectedItem().toString().trim();
+
+                String fishNameStr = null;
+                String selectStateStr = null;
+                String selectDistrictStr = null;
+
+                try{
+                    selectStateStr = selectStateSpinner.getSelectedItem().toString().trim();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Select State", Toast.LENGTH_SHORT).show();
+                }
+
+                try {
+                    fishNameStr = selectFishSpinner.getSelectedItem().toString().trim();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try{
+                    selectDistrictStr = selectDistrictSpinner.getSelectedItem().toString().trim();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
                 String dealCityStr = inputDealCity.getText().toString().trim();
                 String delDateStr = delivery_date.getText().toString().trim();
-                String qtyStr = inputQuantity.getText().toString().trim()+" Kgs";
-
-                String selectStateStr = selectStateSpinner.getSelectedItem().toString().trim();
-                String selectDistrictStr = selectDistrictSpinner.getSelectedItem().toString().trim();
-//                String selectUnitsStr = selectQtyUnits.getSelectedItem().toString().trim();
+                String qtyStr = inputQuantity.getText().toString().trim();
 
                 inputCountPerKgStr = inputCountPerKgEdt.getText().toString().trim();
+
+//                String selectUnitsStr = selectQtyUnits.getSelectedItem().toString().trim();
+
+
+
+
 
                 UUID uuid = UUID.randomUUID();
                 String uuIdStr = uuid.toString().trim();
 
-                makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
+//                    if (!(fishNameStr.length() == 0)) {
+
+                        if (!(inputCountPerKgStr.length() == 0)) {
+
+                            if ((qtyStr.equals(" Kgs"))) {
+
+                                inputQuantity.setError("Enter No Of Kg's");
+                            } else {
+                                makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
+                            }
+                        } else {
+                            inputCountPerKgEdt.setError("Enter Count Per Kg");
+                        }
+
+
 
 //                startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
 
@@ -377,9 +414,22 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response.toString());
 //                hideDialog();
+                String resVal = null;
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response);
+                    resVal = jsonObject.getString("message");
+                    Log.d(TAG, "Upload Response: Value " + resVal);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
-                finish();
+                if(resVal.equals("Product successfully created.")) {
+                    startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
+                    finish();
+                }else {
+                    Toast.makeText(getApplicationContext(),resVal, Toast.LENGTH_SHORT).show();
+                }
 
                /* try {
                     JSONObject jObj = new JSONObject(response);
@@ -469,7 +519,7 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
                 .append(month + 1).append("/").append(year));
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.manager_menu, menu);
@@ -499,7 +549,7 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void logoutUser() {
 

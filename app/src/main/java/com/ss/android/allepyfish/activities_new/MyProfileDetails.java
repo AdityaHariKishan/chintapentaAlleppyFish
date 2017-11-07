@@ -13,11 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,22 +37,30 @@ import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.ForgotPasswordActivity;
 import com.ss.android.allepyfish.activities.LoginActivity;
 import com.ss.android.allepyfish.activities.SignupActivity;
+import com.ss.android.allepyfish.activities.admin.AdminActivity;
 import com.ss.android.allepyfish.fragments.MyProfile;
 import com.ss.android.allepyfish.handlers.SQLiteHandler;
 import com.ss.android.allepyfish.model.ContactInfo;
 import com.ss.android.allepyfish.utils.AppConfig;
+import com.ss.android.allepyfish.utils.AppController;
 import com.ss.android.allepyfish.utils.Utility;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 public class MyProfileDetails extends AppCompatActivity {
+
+    String TAG = MyProfileDetails.class.getSimpleName();
 
     String userName;
     String userEmail;
@@ -64,13 +76,18 @@ public class MyProfileDetails extends AppCompatActivity {
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
 
+    LinearLayout userContactNumberLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_my_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profilePicFMIV = (ImageView) findViewById(R.id.profilePicFMIV);
         uploadNewProfilePic = (ImageButton) findViewById(R.id.uploadNewProfilePic);
+
+        userContactNumberLayout = (LinearLayout)findViewById(R.id.userContactNumberLayout);
 
         profilePicFMIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +134,136 @@ public class MyProfileDetails extends AppCompatActivity {
                 .load(profile_pic)
                 .into(profilePicFMIV);
 
+        userContactNumberLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyProfileDetails.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.custom_dialog_phno, null);
+                dialogBuilder.setView(dialogView);
 
+                final EditText edt = (EditText) dialogView.findViewById(R.id.enterNewPhnoEdt);
+
+
+
+                dialogBuilder.setTitle("Enter Your New Phone No");
+
+                dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //do something with edt.getText().toString();
+
+                        String newPhno = edt.getText().toString().trim();
+
+                        changePhno(newPhno, userEmail);
+                    }
+                });
+                dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //pass
+                    }
+                });
+                AlertDialog b = dialogBuilder.create();
+                b.show();
+            }
+        });
+
+
+    }
+
+    private void changePhno(final String newPhno, final String userEmail) {
+
+        String tag_string_req = "req_login";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.PHONE_NO_UPDATE, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Login Response: " + response.toString());
+//                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    Log.i(TAG, "The Error Value is :: "+error);
+
+                    // Check for error node in json
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+
+
+                        // Now store the user in SQLite
+                        String uid = jObj.getString("uid");
+
+                        JSONObject user = jObj.getJSONObject("user");
+                        String name = user.getString("name");
+                        String email = user.getString("email");
+                        String phoneNo = user.getString("phone_no");
+                        String citySQL = user.getString("city");
+                        String stateSQL = user.getString("state");
+                        String districtSql = user.getString("district");
+                        String profile_pic = user.getString("profile_pic_url");
+                        String created_at = user
+                                .getString("created_at");
+
+
+//                        db.upfateUserPhno(phoneNo);
+
+
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+
+                        JSONObject jObj1 = new JSONObject(response);
+                        String message = jObj1.getString("error_msg");
+
+                        Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
+
+                        Log.i(TAG,"Login Error "+message);
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject((response));
+                        String erroMsg = jsonObject.getString("error_msg");
+                        Log.i(TAG,"Login Error MSG :: 298 :: "+erroMsg);
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+//                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("email", userEmail);
+                params.put("phone_no", newPhno);
+
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     @Override
@@ -304,5 +450,16 @@ public class MyProfileDetails extends AppCompatActivity {
         }
 
         profilePicFMIV.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        Intent intent = getIntent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        finish();
+        return true;
     }
 }

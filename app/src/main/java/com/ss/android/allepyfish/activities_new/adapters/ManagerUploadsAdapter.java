@@ -29,6 +29,8 @@ import java.util.HashMap;
 
 public class ManagerUploadsAdapter extends BaseAdapter {
 
+    String TAG = ManagerUploadsAdapter.class.getSimpleName();
+
     // Declare Variables
     Context context;
     LayoutInflater inflater;
@@ -87,25 +89,28 @@ public class ManagerUploadsAdapter extends BaseAdapter {
             Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(imageView);
             fish_pp = AppConfig.fish_images_url+"Anchovies.jpg";
         }
-        if (resultp.get("product_name").equals("Bombay Duck")) {
+        else if (resultp.get("product_name").equals("Bombay Duck")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"bombay_duck.jpg").into(imageView);
             fish_pp = AppConfig.fish_images_url+"bombay_duck.jpg";
         }
-        if (resultp.get("product_name").equals("Butterfish")) {
+        else if (resultp.get("product_name").equals("Butterfish")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"butterfish.jpg").into(imageView);
             fish_pp = AppConfig.fish_images_url+"butterfish.jpg";
         }
-        if (resultp.get("product_name").equals("Lobsters")) {
+        else if (resultp.get("product_name").equals("Lobsters")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"lobsters.jpg").into(imageView);
             fish_pp = AppConfig.fish_images_url+"lobsters.jpg";
         }
-        if (resultp.get("product_name").equals("Bluefin Travelly")) {
+        else if (resultp.get("product_name").equals("Bluefin Travelly")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
             fish_pp = AppConfig.fish_images_url+"bluefin_travelly.jpg";
         }
-        if (resultp.get("product_name").equals("Catfish")) {
+        else if (resultp.get("product_name").equals("Catfish")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"cat_fish.jpg").into(imageView);
             fish_pp = AppConfig.fish_images_url+"cat_fish.jpg";
+        }else {
+            Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(imageView);
+            fish_pp = AppConfig.fish_images_url+"only_fish.jpg";
         }
 
 
@@ -117,6 +122,37 @@ public class ManagerUploadsAdapter extends BaseAdapter {
             public void onClick(View arg0) {
                 // Get the position
                 resultp = data.get(position);
+
+                String fish_pp_link;
+
+                if (resultp.get("product_name").equals("Anchovies")) {
+
+                    fish_pp_link = AppConfig.fish_images_url+"Anchovies.jpg";
+                }
+                else if (resultp.get("product_name").equals("Bombay Duck")) {
+                    fish_pp_link = AppConfig.fish_images_url+"bombay_duck.jpg";
+                }
+                else if (resultp.get("product_name").equals("Butterfish")) {
+                    fish_pp_link = AppConfig.fish_images_url+"butterfish.jpg";
+                }
+                else if (resultp.get("product_name").equals("Lobsters")) {
+                    fish_pp_link = AppConfig.fish_images_url+"lobsters.jpg";
+                }
+                else if (resultp.get("product_name").equals("Bluefin Travelly")) {
+                    fish_pp_link = AppConfig.fish_images_url+"bluefin_travelly.jpg";
+                }
+                else if (resultp.get("product_name").equals("Catfish")) {
+                    fish_pp_link = AppConfig.fish_images_url+"cat_fish.jpg";
+                }else {
+                    Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(imageView);
+                    fish_pp_link = AppConfig.fish_images_url+"only_fish.jpg";
+                }
+
+
+
+                Log.i(TAG,"The Fish Link "+ fish_pp_link);
+
+
                 Intent intent = new Intent(context, ManagerUploadsDetails.class);
                 intent.putExtra("unique_id", resultp.get("unique_id"));
                 intent.putExtra("product_name", resultp.get("product_name"));
@@ -127,7 +163,8 @@ public class ManagerUploadsAdapter extends BaseAdapter {
                 intent.putExtra("delivery_date",resultp.get("delivery_date"));
                 intent.putExtra("quantity",resultp.get("quantity"));
                 intent.putExtra("created_by",resultp.get("created_by"));
-                intent.putExtra("fish_pp",fish_pp);
+                intent.putExtra("fish_pp",fish_pp_link);
+
                 intent.putExtra("contact_no",resultp.get("contact_no"));
                 intent.putExtra("deal_status",resultp.get("deal_status"));
                 intent.putExtra("order_ide",resultp.get("order_ide"));

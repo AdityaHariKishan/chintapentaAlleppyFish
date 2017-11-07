@@ -163,4 +163,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // return contact list
         return contactList;
     }
+
+    public void upfateUserPhno(String phoneNo) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("", phoneNo);
+
+    }
 }

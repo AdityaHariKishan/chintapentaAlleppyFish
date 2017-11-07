@@ -138,6 +138,7 @@ public class MyGoodsSuppliedFragment extends Fragment {
                         String fm_name = c.getString("fm_name");
                         String created_at = c.getString("created_at");
                         String response_status = c.getString("response_status");
+                        String order_ide = c.getString("order_ide");
 
                         // Phone node is JSON Object
 
@@ -163,6 +164,7 @@ public class MyGoodsSuppliedFragment extends Fragment {
                         contact.put("fm_name", fm_name);
                         contact.put("created_at", created_at);
                         contact.put("response_status", response_status);
+                        contact.put("order_ide", order_ide);
 //                        contact.put("content_type",contentType);
 
                         // adding contact to contact list
