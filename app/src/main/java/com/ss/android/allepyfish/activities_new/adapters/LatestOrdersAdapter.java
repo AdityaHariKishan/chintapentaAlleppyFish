@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities_new.RespondOrder;
 import com.ss.android.allepyfish.utils.AppConfig;
+import com.ss.android.allepyfish.utils.CapitalizedTextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,59 +57,60 @@ public class LatestOrdersAdapter extends BaseAdapter {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Declare Variables
-        TextView rank;
-        TextView country;
-        TextView population;
+        TextView localNameTV;
+        CapitalizedTextView orderAvailableTV;
+        TextView orderQtyRequiredTV;
+//        CapitalizedTextView orderCreatedByTv;
 
-
+        ImageView imageViewStatus;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View itemView = inflater.inflate(R.layout.my_uploads_items, parent, false);
+//        View itemView = inflater.inflate(R.layout.my_uploads_items, parent, false);
+        View itemView = inflater.inflate(R.layout.my_available_orders, parent, false);
         // Get the position
         resultp = data.get(position);
 
         // Locate the TextViews in listview_item.xml
-        rank = (TextView) itemView.findViewById(R.id.name_ls);
-        country = (TextView) itemView.findViewById(R.id.email_ls);
-        population = (TextView) itemView.findViewById(R.id.mobile_ls);
-        imageView=(ImageView) itemView.findViewById(R.id.imageView_ls);
+        localNameTV = (TextView) itemView.findViewById(R.id.fish_local_name);
+        orderAvailableTV = (CapitalizedTextView) itemView.findViewById(R.id.orderAvailableTV);
+        orderQtyRequiredTV = (TextView) itemView.findViewById(R.id.orderQtyRequiredTV);
+//        orderCreatedByTv = (CapitalizedTextView) itemView.findViewById(R.id.orderCreatedByTv);
+        imageView = (ImageView) itemView.findViewById(R.id.imageView_ls);
+        imageViewStatus = (ImageView) itemView.findViewById(R.id.imageView_status);
         // Locate the ImageView in listview_item.xml
 
-        Typeface custom_font = Typeface.createFromAsset(context.getAssets(), "Roboto-Italic.ttf");
-
-
-        rank.setTypeface(custom_font);
 
         // Capture position and set results to the TextViews
-        rank.setText(resultp.get("product_local_name")+"\n State : "+resultp.get("state")+", District : "+resultp.get("district")+", City : "+resultp.get("city"));
-        country.setText("Contact No: "+resultp.get("contact_no")+"\nQuantity Req : "+resultp.get("quantity")+"\nCount Per Kg : "+resultp.get("count_per_kg")+"\nOrder Id : "+resultp.get("order_ide"));
-        population.setText("Created by : "+resultp.get("created_by")+"\nDeal Status : "+resultp.get("deal_status"));
+        localNameTV.setText(resultp.get("product_local_name"));
+        orderAvailableTV.setText(resultp.get("city"));
+        orderQtyRequiredTV.setText(resultp.get("quantity") + " Kg" + " & " + resultp.get("count_per_kg")+"/ Kg");
+//        orderCreatedByTv.setText(resultp.get("created_by"));
 
-        if(resultp.get("product_name").equals("Anchovies"))
-        {
-            Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(imageView);
+     /*   if (resultp.get("deal_status").equals("Close")) {
+            imageViewStatus.setImageResource(R.mipmap.ic_deal_open);
+        }else {
+            imageViewStatus.setImageResource(R.mipmap.ic_deal_close);
+        }*/
+
+        if (resultp.get("product_name").equals("Anchovies")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "Anchovies.jpg").into(imageView);
         }
-        if(resultp.get("product_name").equals("Bombay Duck"))
-        {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bombay_duck.jpg").into(imageView);
+        if (resultp.get("product_name").equals("Bombay Duck")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "bombay_duck.jpg").into(imageView);
         }
-        if(resultp.get("product_name").equals("Butterfish"))
-        { 
-            Picasso.with(context).load(AppConfig.fish_images_url+"butterfish.jpg").into(imageView);
+        if (resultp.get("product_name").equals("Butterfish")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "butterfish.jpg").into(imageView);
         }
-        if(resultp.get("product_name").equals("Lobsters"))
-        {
-            Picasso.with(context).load(AppConfig.fish_images_url+"lobsters.jpg").into(imageView);
+        if (resultp.get("product_name").equals("Lobsters")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "lobsters.jpg").into(imageView);
         }
-        if(resultp.get("product_name").equals("Bluefin Travelly"))
-        {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
+        if (resultp.get("product_name").equals("Bluefin Travelly")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "bluefin_travelly.jpg").into(imageView);
         }
-        if(resultp.get("product_name").equals("Barracuda"))
-        {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
+        if (resultp.get("product_name").equals("Barracuda")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "bluefin_travelly.jpg").into(imageView);
         }
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +118,7 @@ public class LatestOrdersAdapter extends BaseAdapter {
             public void onClick(View arg0) {
                 // Get the position
                 resultp = data.get(position);
-                if(resultp.get("deal_status").equals("Open")) {
+                if (resultp.get("deal_status").equals("Open")) {
                     Intent intent = new Intent(context, RespondOrder.class);
                     intent.putExtra("unique_id", resultp.get("unique_id"));
                     intent.putExtra("product_name", resultp.get("product_name"));
@@ -133,7 +135,7 @@ public class LatestOrdersAdapter extends BaseAdapter {
                     // Start SingleItemView Class
 
                     context.startActivity(intent);
-                }else {
+                } else {
                     Toast.makeText(context, "Deal Closed", Toast.LENGTH_SHORT).show();
                 }
 
@@ -143,12 +145,10 @@ public class LatestOrdersAdapter extends BaseAdapter {
     }
 
     public static Bitmap retriveVideoFrameFromVideo(String videoPath)
-            throws Throwable
-    {
+            throws Throwable {
         Bitmap bitmap = null;
         MediaMetadataRetriever mediaMetadataRetriever = null;
-        try
-        {
+        try {
             mediaMetadataRetriever = new MediaMetadataRetriever();
             if (Build.VERSION.SDK_INT >= 14)
                 mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
@@ -157,19 +157,14 @@ public class LatestOrdersAdapter extends BaseAdapter {
             //   mediaMetadataRetriever.setDataSource(videoPath);
             bitmap = mediaMetadataRetriever.getFrameAtTime();
             imageView.setImageBitmap(bitmap);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Throwable(
                     "Exception in retriveVideoFrameFromVideo(String videoPath)"
                             + e.getMessage());
 
-        }
-        finally
-        {
-            if (mediaMetadataRetriever != null)
-            {
+        } finally {
+            if (mediaMetadataRetriever != null) {
                 mediaMetadataRetriever.release();
             }
         }

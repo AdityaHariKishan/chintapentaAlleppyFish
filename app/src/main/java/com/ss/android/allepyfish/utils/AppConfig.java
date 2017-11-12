@@ -6,8 +6,8 @@ package com.ss.android.allepyfish.utils;
 
 public class AppConfig {
 
-//    static String url = "http://192.168.0.3/alleppyfish/";
-    static String url = "http://ec2-54-146-152-155.compute-1.amazonaws.com/alleppyfish/";
+    static String url = "http://192.168.1.4/alleppyfish/";
+//    static String url = "http://ec2-54-146-152-155.compute-1.amazonaws.com/alleppyfish/";
     public static String fish_images_url = url + "fish_images/";
     //    static String url = "http://alleppeyfish.com/mobile_test/alleppyfish/";
     public static String URL_REGISTER = url + "register.php";
