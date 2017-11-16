@@ -85,7 +85,7 @@ public class LatestOrdersAdapter extends BaseAdapter {
         // Capture position and set results to the TextViews
         localNameTV.setText(resultp.get("product_local_name"));
         orderAvailableTV.setText(resultp.get("city"));
-        orderQtyRequiredTV.setText(resultp.get("quantity") + " Kg" + " & " + resultp.get("count_per_kg")+"/ Kg");
+        orderQtyRequiredTV.setText(resultp.get("quantity") + " Kg" + " & " + resultp.get("count_per_kg")+"/ Kg"+"\n"+resultp.get("delivery_date"));
 //        orderCreatedByTv.setText(resultp.get("created_by"));
 
      /*   if (resultp.get("deal_status").equals("Close")) {

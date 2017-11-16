@@ -36,7 +36,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
-    private static final String KEY_UID = "uid";
+    private static final String KEY_PHNO = "Pphno";
     private static final String KEY_STATE = "state";
     private static final String KEY_DISTRICT = "district";
     private static final String KEY_CITY = "city";
@@ -53,7 +53,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"+ KEY_LOGIN_TYPE + " TEXT,"+ KEY_STATE + " TEXT,"+ KEY_DISTRICT + " TEXT,"+ KEY_CITY + " TEXT,"+ KEY_PROFILE_PIC + " TEXT,"
+                + KEY_EMAIL + " TEXT UNIQUE," + KEY_PHNO + " TEXT,"+ KEY_LOGIN_TYPE + " TEXT,"+ KEY_STATE + " TEXT,"+ KEY_DISTRICT + " TEXT,"+ KEY_CITY + " TEXT,"+ KEY_PROFILE_PIC + " TEXT,"
                 + KEY_CREATED_AT + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
@@ -74,14 +74,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * Storing user details in database
      * name, email, phoneNo, , created_at
      * */
-    public void addUser(String name, String email, String uid, String loginType, String stateSQL, String districtSQL, String citySQL, String created_at, String profile_pic) {
+    public void addUser(String name, String email, String phno, String loginType, String stateSQL, String districtSQL, String citySQL, String created_at, String profile_pic) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name); // Name
         values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_UID, uid); // Email
-        values.put(KEY_LOGIN_TYPE, loginType); // Login Type
+        values.put(KEY_PHNO, phno); // Email
         values.put(KEY_STATE, stateSQL); // state Type
         values.put(KEY_DISTRICT, districtSQL); // district Type
         values.put(KEY_CITY, citySQL); // district Type
@@ -94,6 +93,20 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
 
         Log.d(TAG, "New user inserted into sqlite: " + id);
+    }
+
+    public void upfateUserPhno(String phoneNo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_PHNO, phoneNo);
+
+//        String table, ContentValues values, String whereClause, String[] whereArgs
+
+        long phnoUpdated = db.update(TABLE_USER, contentValues,"id = 1", null);
+
+        db.close();
+
+        Log.d(TAG, "New user Updated into sqlite: " + phnoUpdated);
     }
 
     /**
@@ -164,10 +177,5 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
-    public void upfateUserPhno(String phoneNo) {
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("", phoneNo);
-
-    }
 }

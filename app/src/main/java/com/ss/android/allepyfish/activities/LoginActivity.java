@@ -121,6 +121,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intentLogin);
                 finish();
             }
+            if (loginTypeStr.equals("Fisher Man"))
+            {
+//                intentLogin = new Intent(LoginActivity.this, OfficeBoyLandingScreen.class);
+                intentLogin = new Intent(LoginActivity.this, FisherManScreen.class);
+                startActivity(intentLogin);
+                finish();
+            }
             if (loginTypeStr.equals("Admin"))
             {
 //                intentLogin = new Intent(LoginActivity.this, OfficeBoyLandingScreen.class);

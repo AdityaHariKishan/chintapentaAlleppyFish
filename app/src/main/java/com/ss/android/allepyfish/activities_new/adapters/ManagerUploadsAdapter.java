@@ -81,9 +81,9 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         imageView = (ImageView) itemView.findViewById(R.id.imageView_ls);
 
         // Capture position and set results to the TextViews
-        rank.setText(resultp.get("product_name") + "\n State : " + resultp.get("state") + ", District : " + resultp.get("district") + ", City : " + resultp.get("city"));
-        country.setText("Delivery Date : " + resultp.get("delivery_date")+"\nOrder Id : "+resultp.get("order_ide"));
-        population.setText("Quantity : " + resultp.get("quantity")+"\nDeal Status : "+resultp.get("deal_status"));
+        rank.setText(resultp.get("product_name") + "\n" + resultp.get("state") + ",\nCity : " + resultp.get("city"));
+        country.setText(resultp.get("delivery_date"));
+        population.setText("Quantity : " + resultp.get("quantity")+" Kg's");
 
         if (resultp.get("product_name").equals("Anchovies")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(imageView);

@@ -209,7 +209,14 @@ public class MyProfileDetails extends AppCompatActivity {
                                 .getString("created_at");
 
 
-//                        db.upfateUserPhno(phoneNo);
+                        db.upfateUserPhno(phoneNo);
+
+                        Intent intent1 = getIntent();
+                        overridePendingTransition(0, 0);
+                        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(intent1);
 
 
                     } else {
