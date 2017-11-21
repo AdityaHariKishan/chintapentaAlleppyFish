@@ -116,7 +116,7 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
         countPerKgEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
 
         rateQuotedEdt = (EditText) findViewById(R.id.rateQuotedEdt);
-        rateQuotedEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(2, 2)});
+        rateQuotedEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(4, 2)});
 
         selectFmQtyUnits = (Spinner) findViewById(R.id.selectFmQtyUnits);
 

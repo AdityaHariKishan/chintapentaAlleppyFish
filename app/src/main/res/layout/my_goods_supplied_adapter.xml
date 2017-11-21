@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:orientation="horizontal"
+    android:padding="5dip">
+    <!-- ListRow Left side Thumbnail image -->
+
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:padding="3dip">
+
+
+        <ImageView
+            android:id="@+id/imageView_goods_adapter"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/ic_launcher" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dealStatusIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_keyboard_arrow_right" />
+
+    <TextView
+        android:id="@+id/name_goods_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Fish Nmae"
+        android:textColor="#040404"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/email_goods_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name_goods_adapter"
+        android:layout_below="@+id/name_goods_adapter"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="5dip"
+        android:text="Order Aavailable town"
+        android:textColor="#343434"
+        android:textSize="15dip"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/mobile_goods_adapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name_goods_adapter"
+        android:layout_below="@+id/email_goods_adapter"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="5dip"
+        android:text="Required Quantity"
+        android:textColor="#343434"
+        android:textSize="15dip"
+        android:visibility="visible" />
+
+
+</RelativeLayout>

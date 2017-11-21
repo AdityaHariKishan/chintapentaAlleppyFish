@@ -20,8 +20,13 @@ import com.ss.android.allepyfish.activities_new.ManagerUploadsDetails;
 import com.ss.android.allepyfish.activities_new.RespondOrder;
 import com.ss.android.allepyfish.utils.AppConfig;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by dell on 6/30/2017.
@@ -36,7 +41,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> resultp = new HashMap<String, String>();
-    static ImageView imageView;
+    static ImageView imageView, imageView_status;
 
     String fish_pp;
 
@@ -79,11 +84,41 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         country = (TextView) itemView.findViewById(R.id.email_ls);
         population = (TextView) itemView.findViewById(R.id.mobile_ls);
         imageView = (ImageView) itemView.findViewById(R.id.imageView_ls);
+        imageView_status = (ImageView) itemView.findViewById(R.id.imageView_status);
+
+        DateFormat targetFormat = new SimpleDateFormat("MMM  dd-yyyy", Locale.ENGLISH);
+//        DateFormat originalFormat = new SimpleDateFormat("yyyyMMdd");
+        DateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        DateFormat targetFormat2 = new SimpleDateFormat("dd/MMM", Locale.ENGLISH);
+        Date date = null;
+        Date date2 = null;
+        Date appliedOnDate = null;
+
+        try {
+
+            date = originalFormat.parse(resultp.get("delivery_date"));
+            appliedOnDate = originalFormat.parse(resultp.get("delivery_date"));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        final String formattedFromDate;
+
+        String formattedAppliedDate = null;
+
+        if (appliedOnDate != null) {
+            formattedFromDate = targetFormat.format(date);  // 20120821
+            formattedAppliedDate = targetFormat2.format(appliedOnDate);  // 20120821
+        } else {
+//            formattedFromDate = targetFormat.format(date);  // 20120821
+        }
 
         // Capture position and set results to the TextViews
         rank.setText(resultp.get("product_name") + "\n" + resultp.get("state") + ",\nCity : " + resultp.get("city"));
-        country.setText(resultp.get("delivery_date"));
-        population.setText("Quantity : " + resultp.get("quantity")+" Kg's");
+//        country.setText(resultp.get("delivery_date"));
+        country.setText(formattedAppliedDate);
+        population.setText("Quantity : " + resultp.get("quantity")+" Kg's"+"\nCount : "+resultp.get("count_per_kg")+" / Kg");
 
         if (resultp.get("product_name").equals("Anchovies")) {
             Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(imageView);
@@ -113,6 +148,12 @@ public class ManagerUploadsAdapter extends BaseAdapter {
             fish_pp = AppConfig.fish_images_url+"only_fish.jpg";
         }
 
+        if(resultp.get("deal_status").equals("Close"))
+        {
+            imageView_status.setImageResource(R.drawable.ic_close);
+        }else {
+            imageView_status.setImageResource(R.drawable.ic_open);
+        }
 
         // Capture position and set results to the ImageView
         // Passes flag images URL into ImageLoader.class

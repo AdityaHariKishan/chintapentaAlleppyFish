@@ -137,12 +137,15 @@ public class ManagerMyUploads extends AppCompatActivity {
                             String city = c.getString("city");
                             String delivery_date = c.getString("delivery_date");
                             String quantity = c.getString("quantity");
+                            quantity = quantity.replaceAll("^0+(?=\\d+$)", "");
                             String contactNo = c.getString("contact_no");
                             String created_by = c.getString("created_by");
                             String deal_status = c.getString("deal_status");
                             String creater_pp = c.getString("creater_pp");
                             String order_ide = c.getString("order_ide");
                             String count_per_kg = c.getString("count_per_kg");
+
+
                             //  String description = c.getString("description");
                             //String contentType = c.getString("content_type");
 

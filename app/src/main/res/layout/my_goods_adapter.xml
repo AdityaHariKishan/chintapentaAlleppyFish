@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:background="@color/colorPrimary"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:weightSum="2">
 
 
@@ -24,7 +19,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:src="@mipmap/ic_launcher" />
 
@@ -38,30 +32,21 @@
                 android:id="@+id/name_goods_adapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:fontFamily="serif"
-                android:paddingBottom="2dp"
-                android:paddingTop="6dip"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/email_goods_adapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:paddingBottom="2dip"
                 android:textColor="#fffff3" />
 
             <TextView
                 android:id="@+id/mobile_goods_adapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:fontFamily="serif"
-                android:textColor="#5d5d5d"
-                android:textStyle="bold" />
+                android:textColor="#5d5d5d" />
 
         </LinearLayout>
     </LinearLayout>

@@ -103,7 +103,8 @@
         <activity android:name=".activities_new.ManagerResponseList" />
         <activity
             android:name=".activities_new.ManagerUploadsDetails"
-            android:label="My Product Details" />
+            android:label="My Product Details"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".activities.ManagerResponseListDetails" />
         <activity
             android:name=".activities_new.MyProfileDetails"

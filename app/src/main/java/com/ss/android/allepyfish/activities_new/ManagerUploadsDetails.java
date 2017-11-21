@@ -81,7 +81,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
     ImageView uploadedFishImagesMU;
 
-
+    MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,12 +154,16 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
 
         closeOrderBtn = (Button) findViewById(R.id.closeOrderBtn);
+
         if (deal_status.equals("Close")) {
             closeOrderBtn.setVisibility(View.GONE);
+//            menuItem.setEnabled(false);
+//            menuItem.setVisible(false);
 
         } else {
             closeOrderBtn.setVisibility(View.VISIBLE);
-
+//            menuItem.setEnabled(false);
+//            menuItem.setVisible(true);
         }
         closeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,8 +289,10 @@ public class ManagerUploadsDetails extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
+
         getMenuInflater().inflate(R.menu.edit_my_order_menu, menu);
-//        MenuItem item = menu.findItem(R.id.menu_my_item);
+        menuItem = menu.findItem(R.id.edit_my_order);
 
         return true;
     }

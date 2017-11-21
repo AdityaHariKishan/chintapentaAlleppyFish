@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.UploadNewFish;
 import com.ss.android.allepyfish.activities_new.adapters.MyGoodsAdapter;
+import com.ss.android.allepyfish.adapters.FMGoodsSupliedAdapter;
 import com.ss.android.allepyfish.adapters.OfficeBoyAssigningAdapter;
 import com.ss.android.allepyfish.handlers.HttpHandler;
 import com.ss.android.allepyfish.handlers.SQLiteHandler;
@@ -205,7 +206,7 @@ public class MyGoodsSuppliedFragment extends Fragment {
                 pDialog.dismiss();
             }
 
-            MyGoodsAdapter sfa = new MyGoodsAdapter(getContext(), contactList, loginType);
+            FMGoodsSupliedAdapter sfa = new FMGoodsSupliedAdapter(getContext(), contactList, loginType);
             office_boy_lv.setAdapter(sfa);
 
 
