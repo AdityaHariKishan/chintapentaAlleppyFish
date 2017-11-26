@@ -39,8 +39,9 @@
 
             <include layout="@layout/card_layout_order_quantity_required" />
 
-            <include layout="@layout/card_layout_delivery_date" />
+            <include layout="@layout/card_layout_order_count_per_kg" />
 
+            <include layout="@layout/card_layout_delivery_date" />
 
             <include layout="@layout/card_layout_creator_name" />
 

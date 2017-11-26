@@ -65,6 +65,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
     String order_ide;
     String count_per_kg;
 
+
     Intent intent;
 
     TextView fishNameTV;
@@ -76,7 +77,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
     TextView item_in_city;
     TextView orderIdTV;
     TextView orderedQtyTV;
-
+    TextView orderedQtyPerKgTV;
     Button closeOrderBtn;
 
     ImageView uploadedFishImagesMU;
@@ -92,6 +93,8 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
 
         /*
 
@@ -133,6 +136,9 @@ public class ManagerUploadsDetails extends AppCompatActivity {
 
         fishDelDateTV = (TextView) findViewById(R.id.fishDelDateTV);
         fishDelDateTV.setText(delivery_date);
+
+        orderedQtyPerKgTV = (TextView)findViewById(R.id.orderedQtyPerKgTV);
+        orderedQtyPerKgTV.setText(count_per_kg);
 
 //        fishNameTV = (TextView) findViewById(R.id.fishNameTV);
 //        fishNameTV.setText(product_name);
@@ -285,6 +291,8 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         }
         return result.toString();
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

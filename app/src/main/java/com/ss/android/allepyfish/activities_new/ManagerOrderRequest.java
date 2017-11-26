@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,8 @@ import com.ss.android.allepyfish.handlers.SQLiteHandler;
 import com.ss.android.allepyfish.model.ContactInfo;
 import com.ss.android.allepyfish.utils.AppConfig;
 import com.ss.android.allepyfish.utils.AppController;
+import com.ss.android.allepyfish.utils.DecimalDigitsInputFilter;
+import com.ss.android.allepyfish.utils.InputFilterMinMax;
 import com.ss.android.allepyfish.utils.NoDefaultSpinner;
 import com.ss.android.allepyfish.utils.SessionManager;
 
@@ -60,7 +63,7 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
 
     private String TAG = "ManagerOrderRequest";
 
-    EditText fishNameEdt, inputDealCity, delivery_date, inputQuantity,inputCountPerKgEdt;
+    EditText fishNameEdt, inputDealCity, delivery_date, inputQuantity, inputCountPerKgEdt;
 
     Spinner selectStateSpinner, selectDistrictSpinner, selectQtyUnits, selectFishSpinner;
 
@@ -104,8 +107,10 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
         delivery_date = (EditText) findViewById(R.id.inputDeliveryDate);
         delivery_date.setOnClickListener(this);
         inputQuantity = (EditText) findViewById(R.id.inputQuantity);
+        inputQuantity.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(4, 2)});
 
-        inputCountPerKgEdt = (EditText)findViewById(R.id.inputCountPerKgEdt);
+        inputCountPerKgEdt = (EditText) findViewById(R.id.inputCountPerKgEdt);
+        inputCountPerKgEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
 
         selectStateSpinner = (Spinner) findViewById(R.id.selectStateSpinner);
         selectDistrictSpinner = (Spinner) findViewById(R.id.selectDistrictSpinner);
@@ -320,34 +325,34 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.makeOrderBtn:
-                String userName = null, userContactNo = null, userProfilePicURL = null, mgnrStateStr, mgnrCityStr,inputCountPerKgStr;
+                String userName = null, userContactNo = null, userProfilePicURL = null, mgnrStateStr, mgnrCityStr, inputCountPerKgStr;
 //                String fishNameStr = fishNameEdt.getText().toString().trim();
                 Random rn = new Random();
                 String result = String.valueOf(rn.nextInt());
                 System.out.println(result);
 
-                String orderId = "AF-"+stateCode+"-"+result;
+                String orderId = "AF-" + stateCode + "-" + result;
 
                 String fishNameStr = null;
                 String selectStateStr = null;
                 String selectDistrictStr = null;
 
-                try{
+                try {
                     selectStateStr = selectStateSpinner.getSelectedItem().toString().trim();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Select State", Toast.LENGTH_SHORT).show();
                 }
 
                 try {
                     fishNameStr = selectFishSpinner.getSelectedItem().toString().trim();
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                try{
+                try {
                     selectDistrictStr = selectDistrictSpinner.getSelectedItem().toString().trim();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -361,9 +366,6 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
 //                String selectUnitsStr = selectQtyUnits.getSelectedItem().toString().trim();
 
 
-
-
-
                 UUID uuid = UUID.randomUUID();
                 String uuIdStr = uuid.toString().trim();
 
@@ -371,20 +373,21 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
 
 //                        if (!(inputCountPerKgStr.length() == 0)) {
 
-                            if ((qtyStr.equals(" Kgs"))) {
-
-                                inputQuantity.setError("Enter No Of Kg's");
-                            } else {
-                                makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
-                            }
+                if (!(dealCityStr.length() == 0)) {
+                    if ((qtyStr.length() == 0)) {
+                        inputQuantity.setError("Enter No Of Kg's");
+                    } else {
+                        makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
+                    }
+                } else {
+                    inputDealCity.setError("Please Enter City");
+                }
                        /* } else {
                             inputCountPerKgEdt.setError("Enter Count Per Kg");
                         }*/
 
 
-
 //                startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
-
 
 
 //                new MakeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr,
@@ -441,11 +444,11 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
                     e.printStackTrace();
                 }
 
-                if(resVal.equals("Product successfully created.")) {
+                if (resVal.equals("Product successfully created.")) {
                     startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
                     finish();
-                }else {
-                    Toast.makeText(getApplicationContext(),resVal, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), resVal, Toast.LENGTH_SHORT).show();
                 }
 
                /* try {
@@ -560,9 +563,10 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
     }
 
     private class MakeOrderRequest extends AsyncTask<String, Void, String> {
-        String uuIdStr,  englishFishNameSelectedStr,  fishNameStr,  dealCityStr,  delDateStr,  selectStateStr,  selectDistrictStr,  inputCountPerKgStr,  orderId,  qtyStr,userName,userContactNo,userProfilePicURL;
+        String uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr, userName, userContactNo, userProfilePicURL;
+
         public MakeOrderRequest(String uuIdStr, String englishFishNameSelectedStr, String fishNameStr, String dealCityStr, String delDateStr, String selectStateStr,
-                                String selectDistrictStr, String inputCountPerKgStr, String orderId, String qtyStr, String userName, String userContactNo,String userProfilePicURL) {
+                                String selectDistrictStr, String inputCountPerKgStr, String orderId, String qtyStr, String userName, String userContactNo, String userProfilePicURL) {
             this.uuIdStr = uuIdStr;
             this.englishFishNameSelectedStr = englishFishNameSelectedStr;
             this.fishNameStr = fishNameStr;

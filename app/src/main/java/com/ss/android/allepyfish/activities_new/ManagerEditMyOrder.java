@@ -46,6 +46,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -62,9 +63,11 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
 
     EditText  delivery_date, inputQuantity, countPerKg;
 
-
+    SimpleDateFormat dateFormatter;
 
     Button makeOrderBtn,cancelMuUpdate;
+
+    private DatePickerDialog pickUpDateDialog;
 
     private Calendar calendar;
     private int year, month, day;
@@ -89,14 +92,34 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
         count_per_kgStr = intent.getStringExtra("count_per_kg");
         qttStr = intent.getStringExtra("qty");
 
+        dateFormatter = new SimpleDateFormat("MMM dd,yyyy");
+
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
 
         delivery_date = (EditText) findViewById(R.id.inputUpdateDeliveryDate);
         delivery_date.setOnClickListener(this);
         delivery_date.setText(delDate);
 
+        final String formattedDate = dateFormatter.format(c.getTime());
+        delivery_date.setText(formattedDate);
+
+        Calendar newCalendar = Calendar.getInstance();
+        pickUpDateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                delivery_date.setText(dateFormatter.format(newDate.getTime()));
+
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        pickUpDateDialog.getDatePicker().setMinDate(newCalendar.getTimeInMillis());
+
         inputQuantity = (EditText) findViewById(R.id.inputUpdateQuantity);
         inputQuantity.setText(qttStr);
-        inputQuantity.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 2)});
+        inputQuantity.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(4, 2)});
 
         countPerKg = (EditText) findViewById(R.id.inputUpdateCountPerKgEdt);
         countPerKg.setText(count_per_kgStr);
@@ -108,22 +131,13 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
 
         cancelMuUpdate = (Button) findViewById(R.id.cancelMuUpdate);
         cancelMuUpdate.setOnClickListener(this);
-
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        showDate(year, month + 1, day);
-
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.inputUpdateDeliveryDate:
-                showDialog(999);
+                pickUpDateDialog.show();
                 break;
 
             case R.id.updateOrderEdtBtn:
@@ -140,11 +154,11 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
 
 
                 if(!(qtyStr.length() == 0)) {
-                    if(!(countKGSTr.length() == 0)) {
+//                    if(!(countKGSTr.length() == 0)) {
                         makeOrderRequest(order_ideStr, delDateStr, qtyStr, countKGSTr);
-                    }else {
+                    /*}else {
                         countPerKg.setError("Enter Count Per Kg");
-                    }
+                    }*/
                 }else {
                     inputQuantity.setError("Enter Quantity");
                 }
@@ -229,33 +243,8 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private DatePickerDialog.OnDateSetListener myDateListener = new
-            DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker arg0,
-                                      int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
-                    showDate(arg1, arg2 + 1, arg3);
-                }
-            };
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        if (id == 999) {
-            return new DatePickerDialog(this,
-                    myDateListener, year, month, day);
-        }
-        return null;
-    }
 
-    private void showDate(int year, int i, int day) {
-        delivery_date.setText(new StringBuilder().append(day).append("/")
-                .append(month + 1).append("/").append(year));
-    }
 
 
 

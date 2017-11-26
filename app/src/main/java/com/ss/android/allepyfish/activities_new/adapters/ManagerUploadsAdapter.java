@@ -42,7 +42,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> resultp = new HashMap<String, String>();
-    static ImageView  imageView_status;
+    static ImageView imageView_status;
     SquareImageView squareImageView;
 
     String fish_pp;
@@ -72,6 +72,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         TextView rank;
         TextView country;
         TextView population;
+        TextView countPerKg;
 
 
         inflater = (LayoutInflater) context
@@ -85,12 +86,14 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         rank = (TextView) itemView.findViewById(R.id.name_ls);
         country = (TextView) itemView.findViewById(R.id.email_ls);
         population = (TextView) itemView.findViewById(R.id.mobile_ls);
+        countPerKg = (TextView) itemView.findViewById(R.id.countPerKg);
         squareImageView = (SquareImageView) itemView.findViewById(R.id.imageView_ls);
         imageView_status = (ImageView) itemView.findViewById(R.id.imageView_status);
 
         DateFormat targetFormat = new SimpleDateFormat("MMM  dd-yyyy", Locale.ENGLISH);
 //        DateFormat originalFormat = new SimpleDateFormat("yyyyMMdd");
-        DateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        DateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat originalFormat = new SimpleDateFormat("MMM dd,yyyy");
 
         DateFormat targetFormat2 = new SimpleDateFormat("dd/MMM", Locale.ENGLISH);
         Date date = null;
@@ -120,40 +123,38 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         rank.setText(resultp.get("product_name") + "\n" + resultp.get("state") + ",\nCity : " + resultp.get("city"));
 //        country.setText(resultp.get("delivery_date"));
         country.setText(formattedAppliedDate);
-        population.setText("Quantity : " + resultp.get("quantity")+" Kg's"+"\nCount : "+resultp.get("count_per_kg")+" / Kg");
-
+        population.setText("Quantity : " + resultp.get("quantity") + " Kg's");
+        if (!resultp.get("count_per_kg").equals("")) {
+            countPerKg.setText("Count : "+resultp.get("count_per_kg")+ " / Kg");
+        } else {
+            countPerKg.setText("-");
+        }
         if (resultp.get("product_name").equals("Anchovies")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"Anchovies.jpg";
-        }
-        else if (resultp.get("product_name").equals("Bombay Duck")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bombay_duck.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"bombay_duck.jpg";
-        }
-        else if (resultp.get("product_name").equals("Butterfish")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"butterfish.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"butterfish.jpg";
-        }
-        else if (resultp.get("product_name").equals("Lobsters")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"lobsters.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"lobsters.jpg";
-        }
-        else if (resultp.get("product_name").equals("Bluefin Travelly")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"bluefin_travelly.jpg";
-        }
-        else if (resultp.get("product_name").equals("Catfish")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"cat_fish.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"cat_fish.jpg";
-        }else {
-            Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(squareImageView);
-            fish_pp = AppConfig.fish_images_url+"only_fish.jpg";
+            Picasso.with(context).load(AppConfig.fish_images_url + "Anchovies.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "Anchovies.jpg";
+        } else if (resultp.get("product_name").equals("Bombay Duck")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "bombay_duck.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "bombay_duck.jpg";
+        } else if (resultp.get("product_name").equals("Butterfish")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "butterfish.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "butterfish.jpg";
+        } else if (resultp.get("product_name").equals("Lobsters")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "lobsters.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "lobsters.jpg";
+        } else if (resultp.get("product_name").equals("Bluefin Travelly")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "bluefin_travelly.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "bluefin_travelly.jpg";
+        } else if (resultp.get("product_name").equals("Catfish")) {
+            Picasso.with(context).load(AppConfig.fish_images_url + "cat_fish.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "cat_fish.jpg";
+        } else {
+            Picasso.with(context).load(AppConfig.fish_images_url + "only_fish.jpg").into(squareImageView);
+            fish_pp = AppConfig.fish_images_url + "only_fish.jpg";
         }
 
-        if(resultp.get("deal_status").equals("Close"))
-        {
+        if (resultp.get("deal_status").equals("Close")) {
             imageView_status.setImageResource(R.drawable.ic_close);
-        }else {
+        } else {
             imageView_status.setImageResource(R.drawable.ic_open);
         }
 
@@ -170,30 +171,24 @@ public class ManagerUploadsAdapter extends BaseAdapter {
 
                 if (resultp.get("product_name").equals("Anchovies")) {
 
-                    fish_pp_link = AppConfig.fish_images_url+"Anchovies.jpg";
-                }
-                else if (resultp.get("product_name").equals("Bombay Duck")) {
-                    fish_pp_link = AppConfig.fish_images_url+"bombay_duck.jpg";
-                }
-                else if (resultp.get("product_name").equals("Butterfish")) {
-                    fish_pp_link = AppConfig.fish_images_url+"butterfish.jpg";
-                }
-                else if (resultp.get("product_name").equals("Lobsters")) {
-                    fish_pp_link = AppConfig.fish_images_url+"lobsters.jpg";
-                }
-                else if (resultp.get("product_name").equals("Bluefin Travelly")) {
-                    fish_pp_link = AppConfig.fish_images_url+"bluefin_travelly.jpg";
-                }
-                else if (resultp.get("product_name").equals("Catfish")) {
-                    fish_pp_link = AppConfig.fish_images_url+"cat_fish.jpg";
-                }else {
-                    Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(squareImageView);
-                    fish_pp_link = AppConfig.fish_images_url+"only_fish.jpg";
+                    fish_pp_link = AppConfig.fish_images_url + "Anchovies.jpg";
+                } else if (resultp.get("product_name").equals("Bombay Duck")) {
+                    fish_pp_link = AppConfig.fish_images_url + "bombay_duck.jpg";
+                } else if (resultp.get("product_name").equals("Butterfish")) {
+                    fish_pp_link = AppConfig.fish_images_url + "butterfish.jpg";
+                } else if (resultp.get("product_name").equals("Lobsters")) {
+                    fish_pp_link = AppConfig.fish_images_url + "lobsters.jpg";
+                } else if (resultp.get("product_name").equals("Bluefin Travelly")) {
+                    fish_pp_link = AppConfig.fish_images_url + "bluefin_travelly.jpg";
+                } else if (resultp.get("product_name").equals("Catfish")) {
+                    fish_pp_link = AppConfig.fish_images_url + "cat_fish.jpg";
+                } else {
+                    Picasso.with(context).load(AppConfig.fish_images_url + "only_fish.jpg").into(squareImageView);
+                    fish_pp_link = AppConfig.fish_images_url + "only_fish.jpg";
                 }
 
 
-
-                Log.i(TAG,"The Fish Link "+ fish_pp_link);
+                Log.i(TAG, "The Fish Link " + fish_pp_link);
 
 
                 Intent intent = new Intent(context, ManagerUploadsDetails.class);
@@ -201,17 +196,17 @@ public class ManagerUploadsAdapter extends BaseAdapter {
                 intent.putExtra("product_name", resultp.get("product_name"));
                 intent.putExtra("product_local_name", resultp.get("product_local_name"));
                 intent.putExtra("state", resultp.get("state"));
-                intent.putExtra("district",resultp.get("district"));
-                intent.putExtra("city",resultp.get("city"));
-                intent.putExtra("delivery_date",resultp.get("delivery_date"));
-                intent.putExtra("quantity",resultp.get("quantity"));
-                intent.putExtra("created_by",resultp.get("created_by"));
-                intent.putExtra("fish_pp",fish_pp_link);
+                intent.putExtra("district", resultp.get("district"));
+                intent.putExtra("city", resultp.get("city"));
+                intent.putExtra("delivery_date", resultp.get("delivery_date"));
+                intent.putExtra("quantity", resultp.get("quantity"));
+                intent.putExtra("created_by", resultp.get("created_by"));
+                intent.putExtra("fish_pp", fish_pp_link);
 
-                intent.putExtra("contact_no",resultp.get("contact_no"));
-                intent.putExtra("deal_status",resultp.get("deal_status"));
-                intent.putExtra("order_ide",resultp.get("order_ide"));
-                intent.putExtra("count_per_kg",resultp.get("count_per_kg"));
+                intent.putExtra("contact_no", resultp.get("contact_no"));
+                intent.putExtra("deal_status", resultp.get("deal_status"));
+                intent.putExtra("order_ide", resultp.get("order_ide"));
+                intent.putExtra("count_per_kg", resultp.get("count_per_kg"));
 //                // Start SingleItemView Class
                 context.startActivity(intent);
 
