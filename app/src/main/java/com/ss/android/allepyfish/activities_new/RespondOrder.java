@@ -133,7 +133,6 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
         dateAvailableEdt.setText(formattedDate);
 
         selectFmQtyUnits.setAdapter((new NoDefaultSpinner(adapterProductUnits, R.layout.select_units_custom_spinner, this)));
-        ;
 
         Calendar newCalendar = Calendar.getInstance();
         pickUpDateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {

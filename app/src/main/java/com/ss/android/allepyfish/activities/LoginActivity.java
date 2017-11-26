@@ -293,9 +293,9 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jObj1 = new JSONObject(response);
                         String message = jObj1.getString("error_msg");
 
-//                        Toast.makeText(getApplicationContext(),errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
 
-                        Log.i(TAG,"Login Error "+message);
+                        Log.i(TAG,"Login Error 298 "+message);
                     }
                 } catch (JSONException e) {
                     // JSON error

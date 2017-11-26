@@ -19,6 +19,7 @@ import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities_new.ManagerUploadsDetails;
 import com.ss.android.allepyfish.activities_new.RespondOrder;
 import com.ss.android.allepyfish.utils.AppConfig;
+import com.ss.android.allepyfish.utils.SquareImageView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,7 +42,8 @@ public class ManagerUploadsAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> resultp = new HashMap<String, String>();
-    static ImageView imageView, imageView_status;
+    static ImageView  imageView_status;
+    SquareImageView squareImageView;
 
     String fish_pp;
 
@@ -83,7 +85,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         rank = (TextView) itemView.findViewById(R.id.name_ls);
         country = (TextView) itemView.findViewById(R.id.email_ls);
         population = (TextView) itemView.findViewById(R.id.mobile_ls);
-        imageView = (ImageView) itemView.findViewById(R.id.imageView_ls);
+        squareImageView = (SquareImageView) itemView.findViewById(R.id.imageView_ls);
         imageView_status = (ImageView) itemView.findViewById(R.id.imageView_status);
 
         DateFormat targetFormat = new SimpleDateFormat("MMM  dd-yyyy", Locale.ENGLISH);
@@ -121,30 +123,30 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         population.setText("Quantity : " + resultp.get("quantity")+" Kg's"+"\nCount : "+resultp.get("count_per_kg")+" / Kg");
 
         if (resultp.get("product_name").equals("Anchovies")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"Anchovies.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"Anchovies.jpg";
         }
         else if (resultp.get("product_name").equals("Bombay Duck")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bombay_duck.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"bombay_duck.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"bombay_duck.jpg";
         }
         else if (resultp.get("product_name").equals("Butterfish")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"butterfish.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"butterfish.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"butterfish.jpg";
         }
         else if (resultp.get("product_name").equals("Lobsters")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"lobsters.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"lobsters.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"lobsters.jpg";
         }
         else if (resultp.get("product_name").equals("Bluefin Travelly")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"bluefin_travelly.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"bluefin_travelly.jpg";
         }
         else if (resultp.get("product_name").equals("Catfish")) {
-            Picasso.with(context).load(AppConfig.fish_images_url+"cat_fish.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"cat_fish.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"cat_fish.jpg";
         }else {
-            Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(imageView);
+            Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url+"only_fish.jpg";
         }
 
@@ -185,7 +187,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
                 else if (resultp.get("product_name").equals("Catfish")) {
                     fish_pp_link = AppConfig.fish_images_url+"cat_fish.jpg";
                 }else {
-                    Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(imageView);
+                    Picasso.with(context).load(AppConfig.fish_images_url+"only_fish.jpg").into(squareImageView);
                     fish_pp_link = AppConfig.fish_images_url+"only_fish.jpg";
                 }
 

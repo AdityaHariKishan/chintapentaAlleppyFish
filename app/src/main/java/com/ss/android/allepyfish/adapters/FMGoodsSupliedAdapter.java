@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities_new.ManagerResponseList;
 import com.ss.android.allepyfish.utils.AppConfig;
+import com.ss.android.allepyfish.utils.SquareImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,8 @@ public class FMGoodsSupliedAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> resultp = new HashMap<String, String>();
-    static ImageView imageView, dealStatusIV;
+    static ImageView  dealStatusIV;
+    SquareImageView imageView;
     String loginType;
 
     public FMGoodsSupliedAdapter(Context context, ArrayList<HashMap<String, String>> arraylist, String loginType) {
@@ -74,7 +76,8 @@ public class FMGoodsSupliedAdapter extends BaseAdapter {
         rank = (TextView) itemView.findViewById(R.id.name_goods_adapter);
         country = (TextView) itemView.findViewById(R.id.email_goods_adapter);
         population = (TextView) itemView.findViewById(R.id.mobile_goods_adapter);
-        imageView = (ImageView) itemView.findViewById(R.id.imageView_goods_adapter);
+//        imageView = (ImageView) itemView.findViewById(R.id.imageView_goods_adapter);
+        imageView = (SquareImageView) itemView.findViewById(R.id.imageView_goods_adapter);
         dealStatusIV = (ImageView) itemView.findViewById(R.id.dealStatusIV);
         // Locate the ImageView in listview_item.xml
 
