@@ -12,11 +12,10 @@
         android:weightSum="2">
 
 
-        <ImageView
+        <com.ss.android.allepyfish.utils.SquareImageView
             android:id="@+id/imageView_goods_adapter"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -33,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:layout_marginTop="10dp"
                 android:textSize="16sp" />
 
             <TextView

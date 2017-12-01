@@ -52,25 +52,33 @@
             <include layout="@layout/card_layout_order_city" />
 
 
-
-
+        <LinearLayout
+            android:id="@+id/orederRequestCanCloseLLy"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="match_parent"
+            android:weightSum="2"
+            android:orientation="horizontal">
 
             <Button
+                android:layout_weight="1"
                 android:id="@+id/closeOrderBtn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:text="Close Order" />
 
 
-            <TextView
-                android:id="@+id/ifTestLabel"
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/editOrderBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="TextView"
-                android:visibility="gone" />
+                android:text="Edit Order"
+                android:visibility="visible" />
+
+            </LinearLayout>
 
 
         </LinearLayout>

@@ -3,25 +3,28 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/btn_login_bg"
     android:orientation="vertical"
     android:padding="8dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+
+        <com.ss.android.allepyfish.utils.SquareImageView
             android:id="@+id/ivImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/tvName"
@@ -29,14 +32,13 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
                 android:text="Tom Cruise"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#166CED" />
+                android:textColor="#166CED"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tvDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="serif"
                 android:text="Date of Birth: July 3, 1962"
                 android:textColor="#D64530" />
 
@@ -44,7 +46,6 @@
                 android:id="@+id/tvHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="serif"
                 android:text="Height: 1.80 m"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#D64530" />
@@ -53,7 +54,6 @@
                 android:id="@+id/tvCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="serif"
                 android:text="United States"
                 android:textColor="#D64530" />
 
@@ -67,7 +67,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:text="Delivery Info"
-        android:textColor="#009A57" />
+        android:textColor="#009A57"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvDelDateMgnr"
@@ -75,7 +76,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:text="Spouse: Katie Holmes"
-        android:textColor="#166CED" />
+        android:textColor="#166CED"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvFMDelDate"
@@ -83,6 +85,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif"
         android:text="Children: Suri Cruise, Isabella Jane Cruise, Connor Cruise"
-        android:textColor="#166CED" />
+        android:textColor="#166CED"
+        android:visibility="gone" />
 
 </LinearLayout>

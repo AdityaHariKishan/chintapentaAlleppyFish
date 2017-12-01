@@ -22,6 +22,7 @@ import com.ss.android.allepyfish.activities.ManagerResponseListDetails;
 import com.ss.android.allepyfish.activities_new.ManagerResponseList;
 import com.ss.android.allepyfish.utils.AppConfig;
 import com.ss.android.allepyfish.utils.AppController;
+import com.ss.android.allepyfish.utils.SquareImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +46,7 @@ public class MyOrderFMResponseAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> resultp = new HashMap<String, String>();
-    static ImageView imageView;
+    static SquareImageView imageView;
 
     public MyOrderFMResponseAdapter(Context context, ArrayList<HashMap<String, String>> arraylist) {
         this.context = context;
@@ -89,24 +90,19 @@ public class MyOrderFMResponseAdapter extends BaseAdapter {
         tvCountry = (TextView) itemView.findViewById(R.id.tvCountry);
         tvDelDateMgnr = (TextView) itemView.findViewById(R.id.tvDelDateMgnr);
         tvFMDelDate = (TextView) itemView.findViewById(R.id.tvFMDelDate);
-        imageView = (ImageView) itemView.findViewById(R.id.ivImage);
+        imageView = (SquareImageView) itemView.findViewById(R.id.ivImage);
         // Locate the ImageView in listview_item.xml
-
-        Typeface custom_font = Typeface.createFromAsset(context.getAssets(), "Roboto-Italic.ttf");
-
-
-        rank.setTypeface(custom_font);
 
 
 //delivery_date_by_mngr
 
         // Capture position and set results to the TextViews
-        rank.setText("Fisherman Name : " + resultp.get("fm_name"));
-        country.setText("City : " + resultp.get("city") + "\nDistrict: " + resultp.get("district") + "\nState : " + resultp.get("state"));
-        population.setText("Product Uploaded : " + resultp.get("product_name") + "\nQuantity : " + resultp.get("quantity")+"\nCount Per Kg : "+resultp.get("count_perkg"));
-        tvCountry.setText("Offer Price Rs: " + resultp.get("product_offer_price") + "\nStatus : " + resultp.get("response_status"));
-        tvDelDateMgnr.setText("Manager Delivery Date Request " + resultp.get("delivery_date_by_mngr"));
-        tvFMDelDate.setText("Fisherman Delivery Date Response " + resultp.get("delivery_date_by_fm"));
+        rank.setText("Fisherman : " + resultp.get("fm_name"));
+        country.setText("\nDistrict: " + resultp.get("district") + "\nState : " + resultp.get("state"));
+        population.setText("Product : " + resultp.get("product_name") + "\nQuantity : " + resultp.get("quantity"));
+        tvCountry.setText("Price Rs: " + resultp.get("product_offer_price") + "\nStatus : " + resultp.get("response_status"));
+//        tvDelDateMgnr.setText("Manager Delivery Date Request " + resultp.get("delivery_date_by_mngr"));
+//        tvFMDelDate.setText("Fisherman Delivery Date Response " + resultp.get("delivery_date_by_fm"));
         String imageURL1 = resultp.get("fm_pp");
         Picasso.with(context).load(imageURL1).into(imageView);
 

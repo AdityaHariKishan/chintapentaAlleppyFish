@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,10 +79,11 @@ public class ManagerUploadsDetails extends AppCompatActivity {
     TextView orderIdTV;
     TextView orderedQtyTV;
     TextView orderedQtyPerKgTV;
-    Button closeOrderBtn;
+    Button closeOrderBtn, editOrderBtn;
 
     ImageView uploadedFishImagesMU;
 
+    LinearLayout orederRequestCanCloseLLy;
     MenuItem menuItem;
 
     @Override
@@ -95,6 +97,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        orederRequestCanCloseLLy= (LinearLayout)findViewById(R.id.orederRequestCanCloseLLy);
 
         /*
 
@@ -155,6 +158,22 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         item_in_city = (TextView) findViewById(R.id.item_in_city);
         item_in_city.setText(city);
 
+        editOrderBtn = (Button)findViewById(R.id.editOrderBtn);
+        editOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(ManagerUploadsDetails.this, ManagerEditMyOrder.class);
+//            i.putExtra("product_name",product_name);
+                i.putExtra("order_ide", order_ide);
+                i.putExtra("date", delivery_date);
+                i.putExtra("count_per_kg", count_per_kg);
+                i.putExtra("qty", quantity);
+                startActivity(i);
+                finish();
+            }
+        });
+
 
         Picasso.with(this).load(fish_pp).into(uploadedFishImagesMU);
 
@@ -162,14 +181,12 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         closeOrderBtn = (Button) findViewById(R.id.closeOrderBtn);
 
         if (deal_status.equals("Close")) {
-            closeOrderBtn.setVisibility(View.GONE);
-//            menuItem.setEnabled(false);
-//            menuItem.setVisible(false);
+//            closeOrderBtn.setVisibility(View.GONE);
+            orederRequestCanCloseLLy.setVisibility(View.GONE);
 
         } else {
-            closeOrderBtn.setVisibility(View.VISIBLE);
-//            menuItem.setEnabled(false);
-//            menuItem.setVisible(true);
+//            closeOrderBtn.setVisibility(View.VISIBLE);
+            orederRequestCanCloseLLy.setVisibility(View.VISIBLE);
         }
         closeOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,14 +332,7 @@ public class ManagerUploadsDetails extends AppCompatActivity {
         switch (id) {
             case R.id.edit_my_order:
 
-                Intent i = new Intent(ManagerUploadsDetails.this, ManagerEditMyOrder.class);
-//            i.putExtra("product_name",product_name);
-                i.putExtra("order_ide", order_ide);
-                i.putExtra("date", delivery_date);
-                i.putExtra("count_per_kg", count_per_kg);
-                i.putExtra("qty", quantity);
-                startActivity(i);
-                finish();
+
                 break;
 
         }

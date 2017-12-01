@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_background_menu"
-                android:padding="8dp" />
+                android:padding="12dp" />
 
             <Spinner
                 android:id="@+id/selectFishSpinner"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_background_menu"
-                android:padding="8dp" />
+                android:padding="12dp" />
 
             <!-- Password Label -->
             <android.support.design.widget.TextInputLayout

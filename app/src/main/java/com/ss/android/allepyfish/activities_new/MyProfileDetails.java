@@ -326,10 +326,12 @@ public class MyProfileDetails extends AppCompatActivity {
                         //Dismissing the progress dialog
                         loading.dismiss();
 
-                        //Showing toast
-                        Toast.makeText(MyProfileDetails.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        volleyError.printStackTrace();
 
-                        Log.i("Error 123", "Error in Volley " + volleyError.getMessage().toString().trim());
+                        //Showing toast
+//                        Toast.makeText(MyProfileDetails.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+
+//                        Log.i("Error 123", "Error in Volley " + volleyError.getMessage().toString().trim());
                     }
                 }) {
             @Override

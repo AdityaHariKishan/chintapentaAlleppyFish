@@ -27,6 +27,7 @@ import com.ss.android.allepyfish.activities_new.ManagerResponseList;
 import com.ss.android.allepyfish.activities_new.ManagerUploadsResponse;
 import com.ss.android.allepyfish.utils.AppConfig;
 import com.ss.android.allepyfish.utils.AppController;
+import com.ss.android.allepyfish.utils.SquareImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,7 @@ public class MyGoodsAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<HashMap<String, String>> data;
     HashMap<String, String> resultp = new HashMap<String, String>();
-    static ImageView imageView;
+    static SquareImageView imageView;
     String loginType;
 
     public MyGoodsAdapter(Context context, ArrayList<HashMap<String, String>> arraylist, String loginType) {
@@ -91,7 +92,7 @@ public class MyGoodsAdapter extends BaseAdapter {
         rank = (TextView) itemView.findViewById(R.id.name_goods_adapter);
         country = (TextView) itemView.findViewById(R.id.email_goods_adapter);
         population = (TextView) itemView.findViewById(R.id.mobile_goods_adapter);
-        imageView = (ImageView) itemView.findViewById(R.id.imageView_goods_adapter);
+        imageView = (SquareImageView) itemView.findViewById(R.id.imageView_goods_adapter);
         // Locate the ImageView in listview_item.xml
 
         Typeface custom_font = Typeface.createFromAsset(context.getAssets(), "Roboto-Italic.ttf");

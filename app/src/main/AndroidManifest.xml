@@ -104,22 +104,42 @@
         <activity
             android:name=".activities_new.ManagerUploadsDetails"
             android:label="My Product Details"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activities.ManagerResponseListDetails" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ManagerResponseListDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities_new.MyProfileDetails"
-            android:label="My Profile" />
+            android:label="My Profile"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities_new.ManagerEditMyOrder"
             android:label="Edit the Order"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities_new.ForgotPasswordRequest"
-            android:label="@string/title_activity_forgot_password_request" />
-        <activity android:name=".activities.admin.AdminActivity" />
-        <activity android:name=".activities.admin.RegisteredMembers" />
-        <activity android:name=".activities.office_boy.AdminRequests" />
-        <activity android:name=".activities.admin.ChangePasswordAdmin"></activity>
+            android:label="@string/title_activity_forgot_password_request"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.admin.AdminActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.admin.RegisteredMembers"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.office_boy.AdminRequests"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.admin.ChangePasswordAdmin"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
