@@ -511,39 +511,6 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.manager_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-            logoutUser();
-            return true;
-        }
-        if (id == R.id.action_my_uploads) {
-            startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
-            return true;
-        }
-
-        if (id == R.id.action_my_uploads_response) {
-            startActivity(new Intent(ManagerOrderRequest.this, ManagerUploadsResponse.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     private void logoutUser() {
 
         session.setLogin(false);

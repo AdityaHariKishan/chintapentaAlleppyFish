@@ -69,10 +69,11 @@ public class ManagerUploadsAdapter extends BaseAdapter {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Declare Variables
-        TextView rank;
-        TextView country;
-        TextView population;
-        TextView countPerKg;
+        TextView fishNameMgnr;
+        TextView stateNameMgnr;
+        TextView cityNameMgnr;
+        TextView qtyOrderedMgnr;
+        TextView calendarDateTV;
 
 
         inflater = (LayoutInflater) context
@@ -83,10 +84,11 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         resultp = data.get(position);
 
         // Locate the TextViews in listview_item.xml
-        rank = (TextView) itemView.findViewById(R.id.name_ls);
-        country = (TextView) itemView.findViewById(R.id.email_ls);
-        population = (TextView) itemView.findViewById(R.id.mobile_ls);
-        countPerKg = (TextView) itemView.findViewById(R.id.countPerKg);
+        fishNameMgnr = (TextView) itemView.findViewById(R.id.fishNameMgnr);
+        stateNameMgnr = (TextView) itemView.findViewById(R.id.stateNameMgnr);
+        cityNameMgnr = (TextView) itemView.findViewById(R.id.cityNameMgnr);
+        qtyOrderedMgnr = (TextView) itemView.findViewById(R.id.qtyOrderedMgnr);
+        calendarDateTV = (TextView) itemView.findViewById(R.id.calendarDateTV);
         squareImageView = (SquareImageView) itemView.findViewById(R.id.imageView_ls);
         imageView_status = (ImageView) itemView.findViewById(R.id.imageView_status);
 
@@ -95,7 +97,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
 //        DateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat originalFormat = new SimpleDateFormat("MMM dd,yyyy");
 
-        DateFormat targetFormat2 = new SimpleDateFormat("dd/MMM", Locale.ENGLISH);
+        DateFormat targetFormat2 = new SimpleDateFormat("dd MMM", Locale.ENGLISH);
         Date date = null;
         Date date2 = null;
         Date appliedOnDate = null;
@@ -120,15 +122,18 @@ public class ManagerUploadsAdapter extends BaseAdapter {
         }
 
         // Capture position and set results to the TextViews
-        rank.setText(resultp.get("product_name") + "\n" + resultp.get("state") + ",\nCity : " + resultp.get("city"));
+        fishNameMgnr.setText(resultp.get("product_name"));
+
 //        country.setText(resultp.get("delivery_date"));
-        country.setText(formattedAppliedDate);
-        population.setText("Quantity : " + resultp.get("quantity") + " Kg's");
-        if (!resultp.get("count_per_kg").equals("")) {
+        stateNameMgnr.setText(resultp.get("state"));
+        cityNameMgnr.setText(resultp.get("city"));
+        calendarDateTV.setText(formattedAppliedDate);
+        qtyOrderedMgnr.setText("Quantity : " + resultp.get("quantity") + " Kg's");
+       /* if (!resultp.get("count_per_kg").equals("")) {
             countPerKg.setText("Count : "+resultp.get("count_per_kg")+ " / Kg");
         } else {
             countPerKg.setText("-");
-        }
+        }*/
         if (resultp.get("product_name").equals("Anchovies")) {
             Picasso.with(context).load(AppConfig.fish_images_url + "Anchovies.jpg").into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "Anchovies.jpg";

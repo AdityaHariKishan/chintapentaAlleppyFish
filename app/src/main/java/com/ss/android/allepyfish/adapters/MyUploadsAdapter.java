@@ -1,7 +1,6 @@
 package com.ss.android.allepyfish.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Build;
@@ -67,16 +66,16 @@ public class MyUploadsAdapter extends BaseAdapter {
         resultp = data.get(position);
 
         // Locate the TextViews in listview_item.xml
-        rank = (TextView) itemView.findViewById(R.id.name_ls);
-        country = (TextView) itemView.findViewById(R.id.email_ls);
-        population = (TextView) itemView.findViewById(R.id.mobile_ls);
+//        rank = (TextView) itemView.findViewById(R.id.name_ls);
+        country = (TextView) itemView.findViewById(R.id.calendarDateTV);
+//        population = (TextView) itemView.findViewById(R.id.mobile_ls);
         imageView=(ImageView) itemView.findViewById(R.id.imageView_ls);
         // Locate the ImageView in listview_item.xml
 
         // Capture position and set results to the TextViews
-        rank.setText(resultp.get("product_name")+" "+resultp.get("approved_Status"));
+//        rank.setText(resultp.get("product_name")+" "+resultp.get("approved_Status"));
         country.setText("Contact No: "+resultp.get("contact_no"));
-        population.setText(resultp.get("product_location"));
+//        population.setText(resultp.get("product_location"));
         String imageURL1 = resultp.get("product_pic1").toString().trim();
         Picasso.with(context).load(imageURL1).into(imageView);
 //                .load("http://192.168.0.6//alleppyfish//uploads//aditya.jpg")

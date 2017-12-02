@@ -68,9 +68,9 @@ public class ManagerItemCountAdapter extends BaseAdapter {
         resultp = data.get(position);
 
         // Locate the TextViews in listview_item.xml
-        rank = (TextView) itemView.findViewById(R.id.name_ls);
-        country = (TextView) itemView.findViewById(R.id.email_ls);
-        population = (TextView) itemView.findViewById(R.id.mobile_ls);
+        rank = (TextView) itemView.findViewById(R.id.fishNameMgnr);
+        country = (TextView) itemView.findViewById(R.id.calendarDateTV);
+        population = (TextView) itemView.findViewById(R.id.qtyOrderedMgnr);
         imageView=(ImageView) itemView.findViewById(R.id.imageView_ls);
         // Locate the ImageView in listview_item.xml
 

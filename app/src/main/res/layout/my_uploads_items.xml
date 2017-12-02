@@ -26,13 +26,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="12dp"
             android:layout_weight="2"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:weightSum="2">
+            android:weightSum="4">
 
             <TextView
-                android:id="@+id/name_ls"
+                android:id="@+id/fishNameMgnr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -40,10 +40,10 @@
                 android:gravity="left"
                 android:text="123"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/mobile_ls"
+                android:id="@+id/stateNameMgnr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -51,16 +51,27 @@
                 android:gravity="left"
                 android:text="123"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/countPerKg"
+                android:id="@+id/cityNameMgnr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="123"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                android:textSize="13sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/qtyOrderedMgnr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="123"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -70,25 +81,29 @@
             android:layout_gravity="right"
             android:layout_marginTop="10dp"
             android:gravity="right"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2">
 
 
             <TextView
-                android:id="@+id/email_ls"
+                android:id="@+id/calendarDateTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:gravity="right"
                 android:text="123"
                 android:textColor="@color/white"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/imageView_status"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="right"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right|bottom"
+                android:layout_weight="1"
                 android:src="@mipmap/ic_launcher"
                 android:visibility="visible" />
 
