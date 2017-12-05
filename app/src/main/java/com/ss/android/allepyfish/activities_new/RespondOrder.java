@@ -172,22 +172,36 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
 
             totalQtyStr = qtyAvailabilityStr;
 
-            if (!(qtyAvailabilityStr.length() == 0)) {
-                if (!(countPerKgStr.length() == 0)) {
 
+            if (!(qtyAvailabilityStr.length() == 0)) {
+//                if (!(countPerKgStr.length() == 0)) {
+
+                if ((qtyAvailabilityStr.equals("."))) {
+
+//                    Toast.makeText(getApplicationContext(), "Enter Proper Qty eg:- 12.34", Toast.LENGTH_SHORT).show();
+                    qtyAvailabilityEdt.setError("Enter Proper Qty eg:- 12.34");
+                } else {
                     if (!(rateQuotedStr.length() == 0)) {
 
-                        new RespondOrderRequest().execute();
+                        double val1 = Double.parseDouble(qtyAvailabilityStr);
 
+//                        subString(0,str.indexOf('.'));
+                        String string_temp = new Double(val1).toString();
+                        String string_form = string_temp.substring(string_temp.indexOf('.'), string_temp.length());
+                        double changedDVal = Double.valueOf(string_form);
+                        qtyAvailabilityStr = String.valueOf(changedDVal);
+                        Toast.makeText(getApplicationContext(), qtyAvailabilityStr, Toast.LENGTH_SHORT).show();
+                        new RespondOrderRequest(qtyAvailabilityStr).execute();
                     } else {
                         rateQuotedEdt.setError("Rate Should not be empty");
-
                     }
+                }
 
-                } else {
+
+                /*} else {
                     countPerKgEdt.setError("Enter Count Per Kg");
 
-                }
+                }*/
             } else {
                 qtyAvailabilityEdt.setError("Qunatity Should not be empty");
             }
@@ -211,13 +225,19 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
 
     private class RespondOrderRequest extends AsyncTask<String, Void, String> {
 
+        String qtyAvailbale;
+
+        public RespondOrderRequest(String qtyAvailabilityStr) {
+
+            this.qtyAvailbale = qtyAvailabilityStr;
+        }
+
         protected void onPreExecute() {
         }
 
         protected String doInBackground(String... arg0) {
 
             try {
-
 
                 URL url = new URL(AppConfig.POST_FM_ORDERS_RESPONSE);
                 JSONObject postDataParams = new JSONObject();
@@ -233,7 +253,8 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
                 postDataParams.put("fm_pp", fm_ppURL);
                 postDataParams.put("delivery_date_by_mngr", deliveryDateStr);
                 postDataParams.put("delivery_date_by_fm", dateAvailableStr);
-                postDataParams.put("quantity_providing", totalQtyStr);
+//                postDataParams.put("quantity_providing", totalQtyStr);
+                postDataParams.put("quantity_providing", qtyAvailbale);
                 postDataParams.put("count_perkg", countPerKgStr);
                 postDataParams.put("product_offer_price", rateQuotedStr);
                 postDataParams.put("deal_offer_status", "Open");
@@ -294,7 +315,6 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(String result) {
             Toast.makeText(getApplicationContext(), result,
                     Toast.LENGTH_LONG).show();
-
 
 
 //            startActivity(new Intent(AddProfile.this, MainActivity.class));

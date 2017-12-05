@@ -147,18 +147,32 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
                 String result = String.valueOf(rn.nextInt());
                 System.out.println(result);
 
-                ;
                 String delDateStr = delivery_date.getText().toString().trim();
                 String qtyStr = inputQuantity.getText().toString().trim();
                 String countKGSTr = countPerKg.getText().toString().trim();
 
 
+                double val1 = Double.parseDouble(qtyStr);
+
+//                        subString(0,str.indexOf('.'));
+                String string_temp = new Double(val1).toString();
+                String string_form = string_temp.substring(string_temp.indexOf('.'), string_temp.length());
+                double changedDVal = Double.valueOf(string_form);
+
+                qtyStr = String.valueOf(changedDVal);
                 if(!(qtyStr.length() == 0)) {
+                    if(!(qtyStr.equals("."))) {
 //                    if(!(countKGSTr.length() == 0)) {
+
+//                        Toast.makeText(getApplicationContext(), qtyStr , Toast.LENGTH_SHORT).show();
+
                         makeOrderRequest(order_ideStr, delDateStr, qtyStr, countKGSTr);
                     /*}else {
                         countPerKg.setError("Enter Count Per Kg");
                     }*/
+                    }else {
+                        inputQuantity.setError("Enter Proper Qty eg:- 12.34");
+                    }
                 }else {
                     inputQuantity.setError("Enter Quantity");
                 }
