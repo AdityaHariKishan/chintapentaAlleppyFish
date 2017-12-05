@@ -8,10 +8,7 @@
         android:title="Done"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_logout"
-        android:orderInCategory="100"
-        android:title="Logout" />
+
     <item
         android:id="@+id/action_my_uploads"
         android:orderInCategory="100"
@@ -20,6 +17,11 @@
         android:id="@+id/action_my_uploads_response"
         android:orderInCategory="100"
         android:title="My Request Response" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Logout" />
 
 
 </menu>

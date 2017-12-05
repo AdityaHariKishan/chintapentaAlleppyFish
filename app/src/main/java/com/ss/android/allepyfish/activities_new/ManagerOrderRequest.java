@@ -24,6 +24,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.google.common.collect.Range;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.LoginActivity;
 import com.ss.android.allepyfish.handlers.SQLiteHandler;
@@ -87,6 +90,7 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
     private int year, month, day;
     String stateCode;
 
+    private AwesomeValidation awesomeValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +105,15 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
 
         fishNameEdt = (EditText) findViewById(R.id.fishNameEdt);
         inputDealCity = (EditText) findViewById(R.id.inputDealCity);
         delivery_date = (EditText) findViewById(R.id.inputDeliveryDate);
         delivery_date.setOnClickListener(this);
         inputQuantity = (EditText) findViewById(R.id.inputQuantity);
-        inputQuantity.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(4, 2)});
+        inputQuantity.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(5, 2)});
 
         inputCountPerKgEdt = (EditText) findViewById(R.id.inputCountPerKgEdt);
         inputCountPerKgEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
@@ -315,6 +321,11 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
 
             }
         });
+
+//        "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$", R.string.nameerror);
+
+//        awesomeValidation.addValidation(this, R.id.inputQuantity, "(\\d*\\.?\\d+)\\s?(\\w+)", R.string.weight_error);
+
     }
 
     @Override
@@ -325,73 +336,6 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.makeOrderBtn:
-                String userName = null, userContactNo = null, userProfilePicURL = null, mgnrStateStr, mgnrCityStr, inputCountPerKgStr;
-//                String fishNameStr = fishNameEdt.getText().toString().trim();
-                Random rn = new Random();
-                String result = String.valueOf(rn.nextInt());
-                System.out.println(result);
-
-                String orderId = "AF-" + stateCode + "-" + result;
-
-                String fishNameStr = null;
-                String selectStateStr = null;
-                String selectDistrictStr = null;
-
-                try {
-                    selectStateStr = selectStateSpinner.getSelectedItem().toString().trim();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Select State", Toast.LENGTH_SHORT).show();
-                }
-
-                try {
-                    fishNameStr = selectFishSpinner.getSelectedItem().toString().trim();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    selectDistrictStr = selectDistrictSpinner.getSelectedItem().toString().trim();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-                String dealCityStr = inputDealCity.getText().toString().trim();
-                String delDateStr = delivery_date.getText().toString().trim();
-                String qtyStr = inputQuantity.getText().toString().trim();
-
-                inputCountPerKgStr = inputCountPerKgEdt.getText().toString().trim();
-
-//                String selectUnitsStr = selectQtyUnits.getSelectedItem().toString().trim();
-
-
-                UUID uuid = UUID.randomUUID();
-                String uuIdStr = uuid.toString().trim();
-
-//                    if (!(fishNameStr.length() == 0)) {
-
-//                        if (!(inputCountPerKgStr.length() == 0)) {
-
-                if (!(dealCityStr.length() == 0)) {
-                    if ((qtyStr.length() == 0)) {
-                        inputQuantity.setError("Enter No Of Kg's");
-                    } else {
-                        makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
-                    }
-                } else {
-                    inputDealCity.setError("Please Enter City");
-                }
-                       /* } else {
-                            inputCountPerKgEdt.setError("Enter Count Per Kg");
-                        }*/
-
-
-//                startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
-
-
-//                new MakeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr,
-//                        selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr, userName, userContactNo, userProfilePicURL).execute();
 
                 break;
         }
@@ -672,6 +616,112 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
 
         }
         return result.toString();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.confirm_order_request, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if(id == R.id.confirmMgnrOrder){
+
+
+            confirmMgnrOrder();
+
+            return true;
+        }
+
+
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void confirmMgnrOrder() {
+
+        String userName = null, userContactNo = null, userProfilePicURL = null, mgnrStateStr, mgnrCityStr, inputCountPerKgStr;
+//                String fishNameStr = fishNameEdt.getText().toString().trim();
+        Random rn = new Random();
+        String result = String.valueOf(rn.nextInt());
+        System.out.println(result);
+
+        String orderId = "AF-" + stateCode + "-" + result;
+
+        String fishNameStr = null;
+        String selectStateStr = null;
+        String selectDistrictStr = null;
+
+        try {
+            selectStateStr = selectStateSpinner.getSelectedItem().toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Select State", Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            fishNameStr = selectFishSpinner.getSelectedItem().toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            selectDistrictStr = selectDistrictSpinner.getSelectedItem().toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        String dealCityStr = inputDealCity.getText().toString().trim();
+        String delDateStr = delivery_date.getText().toString().trim();
+        String qtyStr = inputQuantity.getText().toString().trim();
+
+        inputCountPerKgStr = inputCountPerKgEdt.getText().toString().trim();
+
+//                String selectUnitsStr = selectQtyUnits.getSelectedItem().toString().trim();
+
+
+        UUID uuid = UUID.randomUUID();
+        String uuIdStr = uuid.toString().trim();
+
+//                    if (!(fishNameStr.length() == 0)) {
+
+//                        if (!(inputCountPerKgStr.length() == 0)) {
+
+        if (!(dealCityStr.length() == 0)) {
+            if (qtyStr.equals(".")) {
+                inputQuantity.setError("Enter Properly");
+            } else {
+                if ((qtyStr.length() == 0)) {
+                    inputQuantity.setError("Enter No Of Kg's");
+                } else {
+                    makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
+                }
+            }
+        } else {
+            inputDealCity.setError("Please Enter City");
+        }
+                       /* } else {
+                            inputCountPerKgEdt.setError("Enter Count Per Kg");
+                        }*/
+
+
+//                startActivity(new Intent(ManagerOrderRequest.this, ManagerMyUploads.class));
+
+
+//                new MakeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr,
+//                        selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr, userName, userContactNo, userProfilePicURL).execute();
+
     }
 
 }

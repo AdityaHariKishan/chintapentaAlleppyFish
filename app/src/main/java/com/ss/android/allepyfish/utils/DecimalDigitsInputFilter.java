@@ -21,7 +21,7 @@ public class DecimalDigitsInputFilter implements InputFilter {
     private static final int DIGITS_AFTER_ZERO_DEFAULT = 100;
 
     Pattern NUMBERS_WITH_DOTS = Pattern.compile("^\\d+(\\.\\d+)*$");
-    ;
+
 
 
     public DecimalDigitsInputFilter(Integer digitsBeforeZero, Integer digitsAfterZero) {

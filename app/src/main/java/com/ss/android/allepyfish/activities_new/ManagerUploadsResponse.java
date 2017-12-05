@@ -83,9 +83,11 @@ public class ManagerUploadsResponse extends AppCompatActivity {
             super.onPreExecute();
             // Showing progress dialog
             pDialog = new ProgressDialog(ManagerUploadsResponse.this);
+//            pDialog = new ProgressDialog(getApplicationContext());
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
+//            pDialog = null;
 
         }
 
@@ -93,8 +95,6 @@ public class ManagerUploadsResponse extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
 
-            // Making a request to url and getting response
-//            String jsonStr = sh.makeServiceCall(AppConfig.GET_FM_ORDERS_RESPONSE);
             String jsonStr = sh.makeServiceCall(AppConfig.GET_MANAGER_DISTINCT_RESPONSE);
 
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -169,7 +169,7 @@ public class ManagerUploadsResponse extends AppCompatActivity {
             // Dismiss the progress dialog
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
-
+//                pDialog = null;
             }
 
             MyGoodsAdapter sfa = new MyGoodsAdapter(ManagerUploadsResponse.this, contactList, loginType);

@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.ManagerResponseListDetails;
@@ -104,7 +105,7 @@ public class MyOrderFMResponseAdapter extends BaseAdapter {
 //        tvDelDateMgnr.setText("Manager Delivery Date Request " + resultp.get("delivery_date_by_mngr"));
 //        tvFMDelDate.setText("Fisherman Delivery Date Response " + resultp.get("delivery_date_by_fm"));
         String imageURL1 = resultp.get("fm_pp");
-        Picasso.with(context).load(imageURL1).into(imageView);
+        Picasso.with(context).load(imageURL1).memoryPolicy(MemoryPolicy.NO_STORE).into(imageView);
 
 
         // Capture position and set results to the ImageView

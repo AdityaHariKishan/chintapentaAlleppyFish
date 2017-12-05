@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities_new.ManagerUploadsDetails;
@@ -135,25 +136,25 @@ public class ManagerUploadsAdapter extends BaseAdapter {
             countPerKg.setText("-");
         }*/
         if (resultp.get("product_name").equals("Anchovies")) {
-            Picasso.with(context).load(AppConfig.fish_images_url + "Anchovies.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "Anchovies.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "Anchovies.jpg";
         } else if (resultp.get("product_name").equals("Bombay Duck")) {
-            Picasso.with(context).load(AppConfig.fish_images_url + "bombay_duck.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "bombay_duck.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "bombay_duck.jpg";
         } else if (resultp.get("product_name").equals("Butterfish")) {
-            Picasso.with(context).load(AppConfig.fish_images_url + "butterfish.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "butterfish.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "butterfish.jpg";
         } else if (resultp.get("product_name").equals("Lobsters")) {
-            Picasso.with(context).load(AppConfig.fish_images_url + "lobsters.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "lobsters.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "lobsters.jpg";
         } else if (resultp.get("product_name").equals("Bluefin Travelly")) {
-            Picasso.with(context).load(AppConfig.fish_images_url + "bluefin_travelly.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "bluefin_travelly.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "bluefin_travelly.jpg";
         } else if (resultp.get("product_name").equals("Catfish")) {
-            Picasso.with(context).load(AppConfig.fish_images_url + "cat_fish.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "cat_fish.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "cat_fish.jpg";
         } else {
-            Picasso.with(context).load(AppConfig.fish_images_url + "only_fish.jpg").into(squareImageView);
+            Picasso.with(context).load(AppConfig.fish_images_url + "only_fish.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
             fish_pp = AppConfig.fish_images_url + "only_fish.jpg";
         }
 
@@ -188,7 +189,7 @@ public class ManagerUploadsAdapter extends BaseAdapter {
                 } else if (resultp.get("product_name").equals("Catfish")) {
                     fish_pp_link = AppConfig.fish_images_url + "cat_fish.jpg";
                 } else {
-                    Picasso.with(context).load(AppConfig.fish_images_url + "only_fish.jpg").into(squareImageView);
+                    Picasso.with(context).load(AppConfig.fish_images_url + "only_fish.jpg").memoryPolicy(MemoryPolicy.NO_STORE).into(squareImageView);
                     fish_pp_link = AppConfig.fish_images_url + "only_fish.jpg";
                 }
 

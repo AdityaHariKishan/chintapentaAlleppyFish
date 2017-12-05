@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -32,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.ss.android.allepyfish.R;
 import com.ss.android.allepyfish.activities.ForgotPasswordActivity;
@@ -125,13 +127,11 @@ public class MyProfileDetails extends AppCompatActivity {
         myProfileFManTV.setText(userName);
         myProfileuserEmailTV.setText(userEmail);
         myProfileuserPhoneTV.setText(userPhoneNo);
-        String s1 = profile_pic;
-//        Picasso.with(getContext()).load("http://"+s1).into(profilePicFMIV);
-//        Picasso.with(getContext()).load("http://192.168.1.5/alleppyfish/uploads/aditya_pp3.jpg").into(profilePicFMIV);
-//        Picasso.with(profile_pic).into(profilePicFMIV);
+
 
         Picasso.with(this)
                 .load(profile_pic)
+                .memoryPolicy(MemoryPolicy.NO_STORE)
                 .into(profilePicFMIV);
 
         userContactNumberLayout.setOnClickListener(new View.OnClickListener() {
@@ -471,4 +471,15 @@ public class MyProfileDetails extends AppCompatActivity {
         finish();
         return true;
     }
+
+   /* public void onResume() {
+        super.onResume();
+
+        boolean hasImage = true
+                ;
+        if (hasImage) {
+            profilePicFMIV.setImageDrawable(null); // <--- added to force redraw of ImageView
+            profilePicFMIV.setImageURI(Uri.fromFile(getFileStreamPath(profile_pic)));
+        }
+    }*/
 }

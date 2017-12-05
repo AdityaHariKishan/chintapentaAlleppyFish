@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".utils.AppController"
@@ -74,7 +75,7 @@
 
         <activity
             android:name=".activities_new.ManagerOrderRequest"
-            android:label="Manager Order Request"
+            android:label="Make Order Request"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities_new.ManagerUploads"

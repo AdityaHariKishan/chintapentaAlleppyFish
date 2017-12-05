@@ -5,12 +5,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-     <ListView
-         android:id="@+id/list_mgnr_orders"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:divider="@null" />
-
+    <ListView
+        android:id="@+id/list_mgnr_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <!-- <ImageButton
@@ -30,6 +28,7 @@
         android:layout_above="@+id/list_mgnr_orders"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -11,26 +11,45 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-
-        <com.ss.android.allepyfish.utils.SquareImageView
-            android:id="@+id/imageView_goods_adapter"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:orientation="vertical">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+
+            <com.ss.android.allepyfish.utils.SquareImageView
+                android:id="@+id/imageView_goods_adapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_launcher" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/name_goods_adapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="123"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -38,7 +57,12 @@
                 android:id="@+id/email_goods_adapter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#fffff3" />
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="123"
+                android:textColor="#fffff3"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/mobile_goods_adapter"

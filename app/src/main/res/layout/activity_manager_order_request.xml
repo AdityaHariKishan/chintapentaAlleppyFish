@@ -7,6 +7,14 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <com.ss.android.allepyfish.utils.SquareImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone" />
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,17 +23,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp">
-
-            <ImageView
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="20dp"
-                android:src="@mipmap/ic_launcher" />
-
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <!-- Name Label -->
             <android.support.design.widget.TextInputLayout
@@ -166,6 +165,7 @@
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
                 android:padding="12dp"
+                android:visibility="gone"
                 android:text="Create Order Request" />
 
 
