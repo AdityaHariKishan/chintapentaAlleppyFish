@@ -322,9 +322,7 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
             }
         });
 
-//        "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$", R.string.nameerror);
 
-//        awesomeValidation.addValidation(this, R.id.inputQuantity, "(\\d*\\.?\\d+)\\s?(\\w+)", R.string.weight_error);
 
     }
 
@@ -705,7 +703,25 @@ public class ManagerOrderRequest extends AppCompatActivity implements View.OnCli
                 if ((qtyStr.length() == 0)) {
                     inputQuantity.setError("Enter No Of Kg's");
                 } else {
-                    makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
+
+                    float val2 = Float.parseFloat(qtyStr);
+
+                    if(!(val2 < 1)) {
+
+                        if(!(val2 > 10000)) {
+
+                            makeOrderRequest(uuIdStr, englishFishNameSelectedStr, fishNameStr, dealCityStr, delDateStr, selectStateStr, selectDistrictStr, inputCountPerKgStr, orderId, qtyStr);
+
+                        }else {
+                            inputQuantity.setError("Maximum Quantity Exceeded Should be lessthan 10000");
+                        }
+                    }
+                    else {
+                        inputQuantity.setError("Minimum Quantity Should be 1 kg");
+                    }
+
+
+
                 }
             }
         } else {

@@ -110,13 +110,15 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
         dateAvailableEdt.setKeyListener(null);
 
         qtyAvailabilityEdt = (EditText) findViewById(R.id.qtyAvailabilityEdt);
-        qtyAvailabilityEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(2, 2)});
+        qtyAvailabilityEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(5, 2)});
+//        qtyAvailabilityEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "10000")});
 
         countPerKgEdt = (EditText) findViewById(R.id.countPerKgEdt);
-        countPerKgEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
+        countPerKgEdt.setFilters(new InputFilter[]{new InputFilterMinMax("1", "10000")});
 
         rateQuotedEdt = (EditText) findViewById(R.id.rateQuotedEdt);
         rateQuotedEdt.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(4, 2)});
+
 
         selectFmQtyUnits = (Spinner) findViewById(R.id.selectFmQtyUnits);
 
@@ -178,20 +180,27 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
 
                 if ((qtyAvailabilityStr.equals("."))) {
 
+
 //                    Toast.makeText(getApplicationContext(), "Enter Proper Qty eg:- 12.34", Toast.LENGTH_SHORT).show();
                     qtyAvailabilityEdt.setError("Enter Proper Qty eg:- 12.34");
                 } else {
                     if (!(rateQuotedStr.length() == 0)) {
 
-                        double val1 = Double.parseDouble(qtyAvailabilityStr);
+                        float val2 = Float.parseFloat(qtyAvailabilityStr);
 
-//                        subString(0,str.indexOf('.'));
-                        String string_temp = new Double(val1).toString();
-                        String string_form = string_temp.substring(string_temp.indexOf('.'), string_temp.length());
-                        double changedDVal = Double.valueOf(string_form);
-                        qtyAvailabilityStr = String.valueOf(changedDVal);
-                        Toast.makeText(getApplicationContext(), qtyAvailabilityStr, Toast.LENGTH_SHORT).show();
-                        new RespondOrderRequest(qtyAvailabilityStr).execute();
+                        if(!(val2 < 1)) {
+
+                            if(!(val2 > 10000)) {
+
+                                new RespondOrderRequest(qtyAvailabilityStr).execute();
+
+                            }else {
+                                qtyAvailabilityEdt.setError("Maximum Quantity Exceeded Should be lessthan 10000");
+                            }
+                        }
+                        else {
+                            qtyAvailabilityEdt.setError("Minimum Quantity Should be 1 kg");
+                        }
                     } else {
                         rateQuotedEdt.setError("Rate Should not be empty");
                     }
@@ -313,8 +322,10 @@ public class RespondOrder extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), result,
+//                    Toast.LENGTH_LONG).show();
+
+            Log.i(TAG,result);
 
 
 //            startActivity(new Intent(AddProfile.this, MainActivity.class));

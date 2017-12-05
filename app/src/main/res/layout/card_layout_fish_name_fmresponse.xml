@@ -15,7 +15,7 @@
             android:fontFamily="serif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fish Name"
+            android:text="Fish Local Name"
             android:textSize="20sp" />
 
         <TextView

@@ -123,7 +123,7 @@ public class ManagerEditMyOrder extends AppCompatActivity implements View.OnClic
 
         countPerKg = (EditText) findViewById(R.id.inputUpdateCountPerKgEdt);
         countPerKg.setText(count_per_kgStr);
-        countPerKg.setFilters(new InputFilter[]{new InputFilterMinMax("1", "1000")});
+        countPerKg.setFilters(new InputFilter[]{new InputFilterMinMax("1", "10000")});
 
 
         makeOrderBtn = (Button) findViewById(R.id.updateOrderEdtBtn);

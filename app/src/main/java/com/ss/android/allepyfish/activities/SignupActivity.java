@@ -50,8 +50,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -67,40 +66,40 @@ public class SignupActivity extends AppCompatActivity {
 
     private Bitmap bitmap;
 
-    @Bind(R.id.input_name)
+//    @BindViews(R.id.input_name)
     EditText _nameText;
 
-    @Bind(R.id.input_address)
+//    @BindViews(R.id.input_address)
     EditText _addressText;
 
-    @Bind(R.id.input_address2)
+//    @BindViews(R.id.input_address2)
     EditText _addressText2;
 
-    @Bind(R.id.input_email)
+//    @BindViews(R.id.input_email)
     EditText _emailText;
 
-    @Bind(R.id.input_city)
+//    @BindViews(R.id.input_city)
     EditText cityEdt;
 
-    @Bind(R.id.input_mobile)
+//    @BindViews(R.id.input_mobile)
     EditText _mobileText;
 
-    @Bind(R.id.input_password)
+//    @BindViews(R.id.input_password)
     EditText _passwordText;
 
-    @Bind(R.id.input_reEnterPassword)
+//    @BindViews(R.id.input_reEnterPassword)
     EditText _reEnterPasswordText;
 
-    @Bind(R.id.input_login_type)
+//    @BindViews(R.id.input_login_type)
     EditText loginTypeEdt;
 
-    @Bind(R.id.btn_signup)
+//    @BindViews(R.id.btn_signup)
     Button _signupButton;
 
-    @Bind(R.id.link_login)
+//    @BindViews(R.id.link_login)
     TextView _loginLink;
 
-    @Bind(R.id.loadPicIB)
+//    @BindViews(R.id.loadPicIB)
     ImageButton _loadPicIB;
 
     Spinner registeredAsSpinner, districtSpinner, stateSpinner;
@@ -119,7 +118,21 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        ButterKnife.bind(this);
+//        ButterKnife.BindViews(this);
+//        ButterKnife.bind(this);
+
+        _loadPicIB = (ImageButton) findViewById(R.id.loadPicIB);
+        _loginLink = (TextView) findViewById(R.id.link_login);
+        _signupButton = (Button) findViewById(R.id.btn_signup);
+        loginTypeEdt = (EditText) findViewById(R.id.input_login_type);
+        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+        _passwordText = (EditText) findViewById(R.id.input_password);
+        _mobileText = (EditText) findViewById(R.id.input_mobile);
+        cityEdt = (EditText) findViewById(R.id.input_city);
+        _emailText = (EditText) findViewById(R.id.input_email);
+        _addressText2 = (EditText) findViewById(R.id.input_address2);
+        _addressText = (EditText) findViewById(R.id.input_address);
+        _nameText = (EditText) findViewById(R.id.input_name);
 
 
         registeredAsSpinner = (Spinner) findViewById(R.id.registeredAsSpinner);

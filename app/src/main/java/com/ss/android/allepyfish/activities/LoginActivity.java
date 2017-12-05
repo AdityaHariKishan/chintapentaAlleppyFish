@@ -36,8 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,33 +53,40 @@ public class LoginActivity extends AppCompatActivity {
                     ")+"
     );
 
-    @Bind(R.id.input_email)
+    //    @BindViews(R.id.input_email)
     EditText _emailText;
 
-    @Bind(R.id.input_password)
+    //    @BindViews(R.id.input_password)
     EditText _passwordText;
 
-    @Bind(R.id.btn_login)
+    //    @BindViews(R.id.btn_login)
     Button _loginButton;
 
-    @Bind(R.id.btn_forgot_password)
+    //    @BindViews(R.id.btn_forgot_password)
     Button btn_login_mgnr;
 
-    @Bind(R.id.link_signup)
+    //    @BindViews(R.id.link_signup)
     Button _signupLink;
 
     private SessionManager session;
     private SQLiteHandler db;
 
     String loginType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         // SQLite database handler
+        _loginButton = (Button) findViewById(R.id.btn_login);
+        _passwordText = (EditText) findViewById(R.id.input_password);
+        _emailText = (EditText) findViewById(R.id.input_email);
+        btn_login_mgnr = (Button) findViewById(R.id.btn_forgot_password);
+        _signupLink = (Button) findViewById(R.id.link_signup);
+
 
         db = new SQLiteHandler(getApplicationContext());
 
@@ -96,8 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
             String loginTypeStr = user.get("loginType").toString().trim();
 
-            if (loginTypeStr.equals("Fisher Man"))
-            {
+            if (loginTypeStr.equals("Fisher Man")) {
 
 //                intentLogin = new Intent(LoginActivity.this, MainActivity.class);
                 intentLogin = new Intent(LoginActivity.this, FisherManScreen.class); // temp
@@ -105,8 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intentLogin);
                 finish();
             }
-            if (loginTypeStr.equals("Manager"))
-            {
+            if (loginTypeStr.equals("Manager")) {
 
 //                intentLogin = new Intent(LoginActivity.this, ManagerLandingScreenItemCount.class);
 //                intentLogin = new Intent(LoginActivity.this, ManagerOrderRequest.class);
@@ -114,22 +117,19 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intentLogin);
                 finish();
             }
-            if (loginTypeStr.equals("Office Boy"))
-            {
+            if (loginTypeStr.equals("Office Boy")) {
 //                intentLogin = new Intent(LoginActivity.this, OfficeBoyLandingScreen.class);
                 intentLogin = new Intent(LoginActivity.this, FisherManScreen.class);
                 startActivity(intentLogin);
                 finish();
             }
-            if (loginTypeStr.equals("Fisher Man"))
-            {
+            if (loginTypeStr.equals("Fisher Man")) {
 //                intentLogin = new Intent(LoginActivity.this, OfficeBoyLandingScreen.class);
                 intentLogin = new Intent(LoginActivity.this, FisherManScreen.class);
                 startActivity(intentLogin);
                 finish();
             }
-            if (loginTypeStr.equals("Admin"))
-            {
+            if (loginTypeStr.equals("Admin")) {
 //                intentLogin = new Intent(LoginActivity.this, OfficeBoyLandingScreen.class);
                 intentLogin = new Intent(LoginActivity.this, AdminActivity.class);
                 startActivity(intentLogin);
@@ -137,12 +137,12 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             Log.i(TAG, "Pull Name :: " + loginTypeStr + "\n Email is ::: ");
-
-
         }
 
 
-        btn_login_mgnr.setOnClickListener(new View.OnClickListener() {
+
+
+       /* btn_login_mgnr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(LoginActivity.this,ManagerLandingScreen.class));
@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
 //                sendEmail();
 
             }
-        });
+        });*/
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -162,19 +162,19 @@ public class LoginActivity extends AppCompatActivity {
                 String emailStr = _emailText.getText().toString().trim();
                 String pwdStr = _passwordText.getText().toString().trim();
 
-                if(!(emailStr.length() == 0)) {
+                if (!(emailStr.length() == 0)) {
 
-                        if (checkEmail(emailStr)) {
-                            if (!(pwdStr.length() == 0)) {
-                                checkLogin(emailStr, pwdStr);
-                            } else {
-                                _passwordText.setError("Password Should not be empty");
-                            }
-                        }else {
-                            _emailText.setError("Please Enter Proper Email Id");
+                    if (checkEmail(emailStr)) {
+                        if (!(pwdStr.length() == 0)) {
+                            checkLogin(emailStr, pwdStr);
+                        } else {
+                            _passwordText.setError("Password Should not be empty");
                         }
+                    } else {
+                        _emailText.setError("Please Enter Proper Email Id");
+                    }
 
-                }else {
+                } else {
                     _emailText.setError("Email Id Should empty");
                 }
 
@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
 
-                    Log.i(TAG, "The Erro Value is :: "+error);
+                    Log.i(TAG, "The Erro Value is :: " + error);
 
                     // Check for error node in json
                     if (!error) {
@@ -261,23 +261,23 @@ public class LoginActivity extends AppCompatActivity {
                         String created_at = user
                                 .getString("created_at");
 
-                        db.addUser(name, email, phoneNo, loginType, stateSQL, districtSql, citySQL,  created_at,profile_pic);
+                        db.addUser(name, email, phoneNo, loginType, stateSQL, districtSql, citySQL, created_at, profile_pic);
 //                        db.addUser(name, email, uid, loginType, created_at);
 
-                        if(loginType.equals("Manager")){
+                        if (loginType.equals("Manager")) {
 
-                            startActivity(new Intent(LoginActivity.this,ManagerMyUploads.class));
+                            startActivity(new Intent(LoginActivity.this, ManagerMyUploads.class));
                             finish();
-                        }else if (loginType.equals("Fisher Man")){
+                        } else if (loginType.equals("Fisher Man")) {
 
-                            startActivity(new Intent(LoginActivity.this,FisherManScreen.class));
+                            startActivity(new Intent(LoginActivity.this, FisherManScreen.class));
                             finish();
-                        }else if (loginType.equals("Office Boy")){
+                        } else if (loginType.equals("Office Boy")) {
 
-                            startActivity(new Intent(LoginActivity.this,FisherManScreen.class));
+                            startActivity(new Intent(LoginActivity.this, FisherManScreen.class));
                             finish();
-                        } if (loginType.equals("Admin"))
-                        {
+                        }
+                        if (loginType.equals("Admin")) {
 
 //                intentLogin = new Intent(LoginActivity.this, OfficeBoyLandingScreen.class);
                             Intent intentLogin = new Intent(LoginActivity.this, AdminActivity.class);
@@ -293,9 +293,9 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jObj1 = new JSONObject(response);
                         String message = jObj1.getString("error_msg");
 
-                        Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
-                        Log.i(TAG,"Login Error 298 "+message);
+                        Log.i(TAG, "Login Error 298 " + message);
                     }
                 } catch (JSONException e) {
                     // JSON error
@@ -304,7 +304,7 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject((response));
                         String erroMsg = jsonObject.getString("error_msg");
-                        Log.i(TAG,"Login Error MSG :: 298 :: "+erroMsg);
+                        Log.i(TAG, "Login Error MSG :: 298 :: " + erroMsg);
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
