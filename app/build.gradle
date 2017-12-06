@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "ad957daf7bf84676934f5ccc62b54d3b"]
         applicationId "com.ss.android.allepyfish"
